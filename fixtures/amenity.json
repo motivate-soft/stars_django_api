@@ -1,0 +1,222 @@
+[
+  {
+    "model": "accommodation.amenity",
+    "pk": 19,
+    "fields": {
+      "name": "Hair dryer",
+      "slug": "hair-dryer",
+      "image": null,
+      "created_date": "2020-08-01T04:58:52.059Z",
+      "updated_date": "2020-08-05T17:53:49.577Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 20,
+    "fields": {
+      "name": "Slippers",
+      "slug": "slippers",
+      "image": null,
+      "created_date": "2020-08-01T04:58:57.096Z",
+      "updated_date": "2020-08-07T16:47:34.417Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 21,
+    "fields": {
+      "name": "Keurig coffee-maker",
+      "slug": "keurig-coffee-maker",
+      "image": null,
+      "created_date": "2020-08-01T04:59:01.093Z",
+      "updated_date": "2020-08-05T17:55:26.422Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 22,
+    "fields": {
+      "name": "In-unit Laundry",
+      "slug": "in-unit-laundry",
+      "image": null,
+      "created_date": "2020-08-01T04:59:19.965Z",
+      "updated_date": "2020-08-05T17:56:10.278Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 23,
+    "fields": {
+      "name": "WiFi",
+      "slug": "wifi",
+      "image": null,
+      "created_date": "2020-08-01T04:59:37.807Z",
+      "updated_date": "2020-08-07T16:47:59.987Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 24,
+    "fields": {
+      "name": "Laundry in the building",
+      "slug": "laundry-in-the-building",
+      "image": null,
+      "created_date": "2020-08-01T04:59:51.292Z",
+      "updated_date": "2020-08-05T17:57:42.330Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 25,
+    "fields": {
+      "name": "Central Air",
+      "slug": "central-air",
+      "image": null,
+      "created_date": "2020-08-01T05:00:00.098Z",
+      "updated_date": "2020-08-05T17:58:38.138Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 26,
+    "fields": {
+      "name": "Microwave",
+      "slug": "microwave",
+      "image": null,
+      "created_date": "2020-08-01T05:00:14.705Z",
+      "updated_date": "2020-08-05T18:05:27.137Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 28,
+    "fields": {
+      "name": "Refrigerator",
+      "slug": "refrigerator",
+      "image": null,
+      "created_date": "2020-08-01T05:00:25.561Z",
+      "updated_date": "2020-08-05T18:00:26.691Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 29,
+    "fields": {
+      "name": "Fully equipped eat-in kitchen",
+      "slug": "fully-equipped-eat-in-kitchen",
+      "image": null,
+      "created_date": "2020-08-01T05:00:29.588Z",
+      "updated_date": "2020-08-07T16:52:13.715Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 30,
+    "fields": {
+      "name": "Regular coffee maker",
+      "slug": "regular-coffee-maker",
+      "image": null,
+      "created_date": "2020-08-01T05:00:35.593Z",
+      "updated_date": "2020-08-05T17:59:25.977Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 31,
+    "fields": {
+      "name": "Smoke detector",
+      "slug": "smoke-detector",
+      "image": null,
+      "created_date": "2020-08-01T05:00:46.991Z",
+      "updated_date": "2020-08-05T18:01:34.785Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 32,
+    "fields": {
+      "name": "Carbon monoxide detector",
+      "slug": "carbon-monoxide-detector",
+      "image": null,
+      "created_date": "2020-08-01T05:00:51.270Z",
+      "updated_date": "2020-08-05T18:02:19.654Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 34,
+    "fields": {
+      "name": "Free on-street parking",
+      "slug": "free-on-street-parking",
+      "image": null,
+      "created_date": "2020-08-01T05:01:06.731Z",
+      "updated_date": "2020-08-05T18:03:10.439Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 35,
+    "fields": {
+      "name": "Stove / Oven",
+      "slug": "stove-oven",
+      "image": null,
+      "created_date": "2020-08-01T05:01:14.733Z",
+      "updated_date": "2020-08-07T17:24:56.109Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 36,
+    "fields": {
+      "name": "Walk-in Shower",
+      "slug": "walk-in-shower",
+      "image": null,
+      "created_date": "2020-08-01T07:07:53.096Z",
+      "updated_date": "2020-08-05T18:04:30.816Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 37,
+    "fields": {
+      "name": "Elevator",
+      "slug": "elevator",
+      "image": null,
+      "created_date": "2020-08-05T14:50:11.247Z",
+      "updated_date": "2020-08-07T16:49:42.863Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 38,
+    "fields": {
+      "name": "Free Parking",
+      "slug": "free-parking",
+      "image": null,
+      "created_date": "2020-08-06T09:31:10.148Z",
+      "updated_date": "2020-08-06T09:31:10.164Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 40,
+    "fields": {
+      "name": "Welcome Basket",
+      "slug": "welcome-basket",
+      "image": null,
+      "created_date": "2020-08-07T16:45:54.721Z",
+      "updated_date": "2020-08-08T03:11:44.884Z"
+    }
+  },
+  {
+    "model": "accommodation.amenity",
+    "pk": 41,
+    "fields": {
+      "name": "Dishwasher",
+      "slug": "dishwasher",
+      "image": null,
+      "created_date": "2020-08-07T16:46:10.363Z",
+      "updated_date": "2020-08-07T16:48:51.728Z"
+    }
+  }
+]

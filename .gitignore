@@ -1,0 +1,36 @@
+# If you would like to upload your .git directory, .gitignore file or files
+# from your .gitignore file, remove the corresponding line
+# below:
+
+.git
+
+# Python pycache:
+__pycache__/
+venv
+
+# Django migrations:
+migrations/
+
+# node modules
+node_modules/
+
+# testing
+coverage
+
+# production
+
+# editor
+.idea
+.vscode
+
+# gcp credentials 
+/credentials.json
+
+# app credentials
+/secrets.json
+
+/tmp
+
+.env
+
+/static/media/uploads/

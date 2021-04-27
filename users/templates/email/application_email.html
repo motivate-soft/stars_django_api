@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color: #ebebeb;">
+<div>
+    <div style="max-width: 600px; margin: auto; font-size: 16px;">
+        <h3 style="font-size: 36px; text-align: center; margin: 50px auto;">Rental Application Form</h3>
+        <p>Name: {{ name }}</p>
+        <p>Permanent address: {{ address }}</p>
+        <p>Phone number: {{ phonenumber }}</p>
+        <p>Email address: {{ email }}</p>
+        <p>Dates of occupancy (Start Date - End Date): {{ dates }}</p>
+        <p>How many adults, and how many children: {{ people }}</p>
+        <p>Pets - if yes, please list type and breed: {{ pets }}</p>
+        <p>Contact in case of an emergency: {{ contact }}</p>
+        <p>Employer? (if student, please list name of university): {{ employer }}</p>
+        <p>Occupation: {{ occupation }}</p>
+        <p>Reason for your visit: {{ reason }}</p>
+        <p>Anything else we should know of: {{ extradetail }}</p>
+        <h5 style="font-size: 20px; font-weight: bold; margin: 20px auto;">Present Landlord</h5>
+        <p>name: {{ lordname }}</p>
+        <p>Complete Address: {{ lordaddress }}</p>
+        <p>Phone Number: {{ lordphonenumber }}</p>
+        <h5 style="font-size: 20px; font-weight: bold; margin: 20px auto;">Former Landlord</h5>
+        <p>name: {{ formerlordname }}</p>
+        <p>Occupancy: {{ formerlordoccupancy }}</p>
+        <p>Complete Address: {{ formerlordaddress }}</p>
+        <p>Phone Number: {{ formerlordphonenumber }}</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+[
+{
+    "model": "accommodation.category",
+    "pk": 1,
+    "fields": {
+        "name": "1-Bedroom",
+        "slug": "1-bedroom",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-11-18T13:37:45.912Z"
+    }
+},
+{
+    "model": "accommodation.category",
+    "pk": 2,
+    "fields": {
+        "name": "2-Bedrooms",
+        "slug": "2-bedrooms",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-07-02T07:27:14.022Z"
+    }
+},
+{
+    "model": "accommodation.category",
+    "pk": 3,
+    "fields": {
+        "name": "3-bedrooms",
+        "slug": "3-bedrooms",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-07-02T07:27:23.220Z"
+    }
+},
+{
+    "model": "accommodation.category",
+    "pk": 4,
+    "fields": {
+        "name": "4-Bedrooms",
+        "slug": "4-bedrooms",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-07-02T07:27:34.099Z"
+    }
+},
+{
+    "model": "accommodation.category",
+    "pk": 5,
+    "fields": {
+        "name": "Studios",
+        "slug": "studios",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-07-02T07:28:11.589Z"
+    }
+},
+{
+    "model": "accommodation.category",
+    "pk": 6,
+    "fields": {
+        "name": "Private Rooms",
+        "slug": "private-rooms",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-07-07T15:49:59.364Z"
+    }
+}
+]

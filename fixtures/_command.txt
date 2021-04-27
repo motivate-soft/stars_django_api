@@ -1,0 +1,20 @@
+python manage.py loaddata fixtures/db.json
+python manage.py loaddata fixtures/content.json --app content.Content
+python manage.py loaddata fixtures/amenity.json --app accommodation.Amenity
+python manage.py loaddata fixtures/category.json --app accommodation.Category
+
+python manage.py loaddata fixtures/property.json --app accommodation.Property
+
+
+python manage.py loaddata fixtures/model_name.json --app app.model_name
+
+
+python manage.py dumpdata --exclude auth.permission --exclude=token_blacklist.outstandingtoken --exclude contenttypes > fixtures/db.json --indent 4
+
+python manage.py dumpdata authentication.CustomUser --indent 4 > fixtures/users.json
+python manage.py dumpdata accommodation.property --indent 4 > fixtures/property.json
+python manage.py dumpdata accommodation.category --indent 4 > fixtures/category.json
+python manage.py dumpdata content.Content --indent 4 > fixtures/content.json
+
+
+

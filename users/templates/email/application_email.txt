@@ -1,0 +1,24 @@
+Name: {{ name }}
+Permanent address: {{ address }}
+Phone number: {{ phonenumber }}
+Email address: {{ email }}
+Dates of occupancy (Start Date - End Date): {{ dates }}
+How many adults, and how many children: {{ people }}
+Pets - if yes, please list type and breed: {{ pets }}
+Contact in case of an emergency: {{ contact }}
+Employer? (if student, please list name of university):
+{{ employer }}
+Occupation: {{ occupation}}
+Salary: {{ salary }}
+Reason for your visit: {{ reason }}
+Anything else we should know of: {{ extradetail }}
+
+Present Landlord
+name: {{ lordname }}
+Complete Address: {{ lordaddress }}
+Phone Number: {{ lordphonenumber }}
+Former Landlord
+name: {{ formerlordname }}
+Occupancy: {{ formerlordoccupancy }}
+Complete Address: {{ formerlordaddress }}
+Phone Number: {{ formerlordphonenumber }}

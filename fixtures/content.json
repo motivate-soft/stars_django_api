@@ -1,0 +1,1036 @@
+[
+{
+    "model": "content.content",
+    "pk": 1,
+    "fields": {
+        "title": "Turn-Key Apartment Rental Solutions",
+        "text": "<p>Welcome to STARS of Boston - our name says it all! We are the <strong style=\"color: rgb(187, 187, 187);\">S</strong>hort <strong style=\"color: rgb(187, 187, 187);\">T</strong>erm <strong style=\"color: rgb(187, 187, 187);\">A</strong>partment <strong style=\"color: rgb(187, 187, 187);\">R</strong>ental <strong style=\"color: rgb(187, 187, 187);\">S</strong>olution in Greater Boston. Whether you're vacationing, on business, a travel nurse or patient family, touring a university or taking in the historic sights, STARS provides flexible-term housing delivered by friendly, responsive guest services with complimentary and VIP extras. Our properties are located in desirable, convenient locations and offer stylish, comfortable settings designed for living well. We look forward to hosting you and your family, friends and colleagues time and again for years to come!</p>",
+        "slug": "turn-key-apartment-rental-solutions",
+        "created_date": "2020-06-30T23:21:31.187Z",
+        "updated_date": "2020-11-18T13:38:36.111Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 2,
+    "fields": {
+        "title": "Private Rooms",
+        "text": "<p>Thoughtfully furnished rooms in a classic Boston brownstone for the budget minded. Relax or work in stylish comfort with access to a full kitchen near Fenway, Longwood and BU opposite cafes, groceries and MBTA Green Line.</p>",
+        "slug": "private-rooms",
+        "created_date": "2020-07-16T08:20:01Z",
+        "updated_date": "2020-10-07T16:33:35.937Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 3,
+    "fields": {
+        "title": "Apartments",
+        "text": "<p>Feel right at home in our short term and extended stay properties. Stylish studio - 4 bedroom options in Greater Boston's most desirable locales around Downtown, Brookline, Longwood Medical, Back Bay and <span style=\"color: rgb(58, 58, 58);\">Cambridge</span>.</p>",
+        "slug": "apartments",
+        "created_date": "2020-07-17T08:20:37Z",
+        "updated_date": "2020-10-07T16:46:14.558Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 4,
+    "fields": {
+        "title": "Homes or Townhouses",
+        "text": "<p>Our beautifully furnished houses and townhomes are designed for living well. Cost-effective hotel alternatives offer privacy and comfort for a Boston vacation, temporary housing or medical and <span style=\"color: rgb(58, 58, 58);\">corporate </span>travel needs.</p>",
+        "slug": "homes-or-townhouses",
+        "created_date": "2020-07-17T08:21:17Z",
+        "updated_date": "2020-10-11T14:08:28.404Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 5,
+    "fields": {
+        "title": "Corporate Housing",
+        "text": "<p>Call us crazy, but we believe style promotes productivity! Our fully-furnished corporate units are perfect for business travelers. We've successfully blended dedicated workspaces and complimentary wi-fi with the ease of self check-in and a comprehensive City Guide with tips on getting around and where to eat, shop and entertain. </p><p>Our budget friendly corporate units offer 24/7 guest services with personality and VIP extras at a fraction of the cost of the cookie cutter alternatives. Business travel needn't be boring - live a little while you <s>stay</s> work!</p>",
+        "slug": "corporate-housing",
+        "created_date": "2020-07-17T08:40:43Z",
+        "updated_date": "2020-09-23T15:05:31.697Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 6,
+    "fields": {
+        "title": "FEEL AT HOME IN BOSTON",
+        "text": "<p>Beautifully furnished rentals in coveted locations with all the ease and comforts of being right at home</p>",
+        "slug": "feel-at-home-in-boston",
+        "created_date": "2020-07-17T08:55:35Z",
+        "updated_date": "2020-09-09T18:01:36.329Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 7,
+    "fields": {
+        "title": "THE RIGHT FIT",
+        "text": "<p>Medical travelers, traveling nurses, corporate and temporary housing, college scouting or sightseeing, we've got you housed</p>",
+        "slug": "the-right-fit",
+        "created_date": "2020-07-17T09:20:47Z",
+        "updated_date": "2020-10-12T16:37:54.844Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 8,
+    "fields": {
+        "title": "SHORT OR LONG STAYS",
+        "text": "<p>Available daily, weekly, or monthly. Our flexible-term stays are perfectly arranged to suit your needs</p>",
+        "slug": "short-or-long-stays",
+        "created_date": "2020-07-17T09:20:54Z",
+        "updated_date": "2020-09-30T17:36:35.947Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 9,
+    "fields": {
+        "title": "PERSONALIZED SERVICE",
+        "text": "<p>Our friendly, responsive guest services ensure all your needs are met, from special requests to the mundane necessities</p>",
+        "slug": "personalized-service",
+        "created_date": "2020-07-17T09:20:58Z",
+        "updated_date": "2020-10-07T15:06:14.817Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 10,
+    "fields": {
+        "title": "IN-DEMAND LOCATIONS",
+        "text": "<p>Minutes to public transit and easy access to shopping, dining, hospitals, business centers, universities, tourist attractions and nightlife</p>",
+        "slug": "in-demand-locations",
+        "created_date": "2020-07-17T09:21:03Z",
+        "updated_date": "2020-09-09T17:45:09.856Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 11,
+    "fields": {
+        "title": "LEAVE IT TO A LOCAL",
+        "text": "<p>From city attractions to local haunts, rely on our insider knowledge and curated City Guide for the best Boston experience</p>",
+        "slug": "leave-it-to-a-local",
+        "created_date": "2020-07-17T09:21:08Z",
+        "updated_date": "2020-09-09T17:52:40.951Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 12,
+    "fields": {
+        "title": "CAR SERVICE",
+        "text": "<p>Boston drivers are legendary! Let our airport transfer and personal drivers navigate</p>",
+        "slug": "car-service",
+        "created_date": "2020-07-17T09:21:14Z",
+        "updated_date": "2020-09-30T17:28:22.263Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 13,
+    "fields": {
+        "title": "CHILD CARE",
+        "text": "<p>Pack-and-play rentals and dependable babysitting services meet everyone\u2019s needs</p>",
+        "slug": "child-care",
+        "created_date": "2020-07-17T09:21:19Z",
+        "updated_date": "2020-10-13T18:41:26.150Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 14,
+    "fields": {
+        "title": "PET SERVICE",
+        "text": "<p>Most four-legged friends are welcome! Reliable care for your pets while you\u2019re busy</p>",
+        "slug": "pet-service",
+        "created_date": "2020-07-17T09:21:24Z",
+        "updated_date": "2020-09-30T17:33:38.186Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 15,
+    "fields": {
+        "title": "SPA SERVICE",
+        "text": "<p>Ready to let off some steam? Order up in-house spa services right to your rental</p>",
+        "slug": "spa-service",
+        "created_date": "2020-07-17T09:21:31Z",
+        "updated_date": "2020-10-13T18:43:29.439Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 16,
+    "fields": {
+        "title": "Quiet, Professional Buildings",
+        "text": "",
+        "slug": "quiet-professional-buildings",
+        "created_date": "2020-07-17T09:21:36Z",
+        "updated_date": "2020-10-13T18:09:41.004Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 17,
+    "fields": {
+        "title": "Fully-Equipped Kitchens",
+        "text": "",
+        "slug": "fully-equipped-kitchens",
+        "created_date": "2020-07-17T09:22:30Z",
+        "updated_date": "2020-10-13T18:10:55.938Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 18,
+    "fields": {
+        "title": "Public Transit (MBTA) Access",
+        "text": "",
+        "slug": "public-transit-mbta-access",
+        "created_date": "2020-07-17T09:22:35Z",
+        "updated_date": "2020-10-13T18:11:27.629Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 19,
+    "fields": {
+        "title": "Heat + Air Conditioning",
+        "text": "",
+        "slug": "asdf",
+        "created_date": "2020-07-17T09:22:39Z",
+        "updated_date": "2020-07-17T09:22:42Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 20,
+    "fields": {
+        "title": "Complimentary Wi-Fi",
+        "text": "",
+        "slug": "complimentary-wi-fi",
+        "created_date": "2020-07-17T09:22:44Z",
+        "updated_date": "2020-10-13T18:12:17.640Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 21,
+    "fields": {
+        "title": "Desk + Work Spaces",
+        "text": "",
+        "slug": "desk-work-spaces",
+        "created_date": "2020-07-17T09:22:50Z",
+        "updated_date": "2020-10-13T18:17:15.375Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 22,
+    "fields": {
+        "title": "Express Check-In + Check-Out",
+        "text": "",
+        "slug": "express-check-in-check-out",
+        "created_date": "2020-07-17T09:22:55Z",
+        "updated_date": "2020-10-13T18:23:58.761Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 23,
+    "fields": {
+        "title": "Curated Local Information",
+        "text": "",
+        "slug": "curated-local-information",
+        "created_date": "2020-07-17T09:23:00Z",
+        "updated_date": "2020-10-13T18:21:31.684Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 24,
+    "fields": {
+        "title": "Linens + Towels + Hair Dryer",
+        "text": "",
+        "slug": "linens-towels-hair-dryer",
+        "created_date": "2020-07-17T09:23:06Z",
+        "updated_date": "2020-10-13T18:24:48.459Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 25,
+    "fields": {
+        "title": "Coffee Maker + Tableware",
+        "text": "",
+        "slug": "coffee-maker-tableware",
+        "created_date": "2020-07-17T09:23:11Z",
+        "updated_date": "2020-10-13T18:30:23.173Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 26,
+    "fields": {
+        "title": "Iron + Ironing Board",
+        "text": "",
+        "slug": "iron-ironing-board",
+        "created_date": "2020-07-17T09:23:16Z",
+        "updated_date": "2020-10-13T18:29:49.337Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 27,
+    "fields": {
+        "title": "Welcome Gift Basket",
+        "text": "",
+        "slug": "asdf",
+        "created_date": "2020-07-17T09:23:22Z",
+        "updated_date": "2020-07-17T09:23:24Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 28,
+    "fields": {
+        "title": "Doesn't show - Not in Use",
+        "text": "",
+        "slug": "doesnt-show-not-in-use",
+        "created_date": "2020-07-17T09:23:26Z",
+        "updated_date": "2020-10-13T18:35:08.163Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 29,
+    "fields": {
+        "title": "Doesn't show - Not in Use",
+        "text": "",
+        "slug": "doesnt-show-not-in-use",
+        "created_date": "2020-07-17T09:23:31Z",
+        "updated_date": "2020-10-13T18:35:26.182Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 30,
+    "fields": {
+        "title": "Medical Travel",
+        "text": "<p>With so many options near renowned hospitals, specialists and teaching facilities, STARS specializes in housing medical travelers from around the world. We fully understand and gladly accommodate the unique needs and requirements of patient families, travel nurses and medical professionals.</p><p>Our clean, stylish and fully accessorized properties offer easy access to Longwood Medical Area, Dana Farber Cancer Institute, Boston Children's Hospital, Mass General Hospital and many nearby facilities. Whether your stay is short or extended, rely on our flexible term medical stays for superior value and cost-effective hotel alternatives in all the desirable and convenient locations around Greater Boston.</p>",
+        "slug": "medical-travel",
+        "created_date": "2020-07-17T09:23:37Z",
+        "updated_date": "2020-10-07T15:25:30.369Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 31,
+    "fields": {
+        "title": "Your short-term apartment rental solution in greater Boston.",
+        "text": "<p>Your short-term apartment rental solution in greater Boston.</p>",
+        "slug": "your-short-term-apartment-rental-solution-in-greater-boston",
+        "created_date": "2020-07-17T09:44:51Z",
+        "updated_date": "2020-07-17T02:50:19.846Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 32,
+    "fields": {
+        "title": "Boston",
+        "text": "<p>Boston is the epitome of the historic and the contemporary. Personal preferences for entertainment and interests are virtually endless: from historic trails and artifacts to fringe theatre, from inspirational architecture to dining on local fare. Dining options are dynamic and delicious. Contemporary cuisine, traditional New England fare with a few twists and an eclectic mix of international and ethnic dishes make for exceptional dining. New restaurants and old favorites cater to every palate and pocketbook. Boston's public transportation is accessible and convenient. Taxis and bike rentals with designated lanes are also readily available.</p>",
+        "slug": "boston",
+        "created_date": "2020-07-17T09:55:52Z",
+        "updated_date": "2020-10-07T15:54:15.153Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 33,
+    "fields": {
+        "title": "Brookline",
+        "text": "<p><span style=\"color: rgb(58, 58, 58);\">Brookline is home to an eclectic mix of independent shops and boutiques and a variety of restaurants, cafes and bistros offering both unique and traditional flavors; casual dining and gourmet meals. </span>Brookline is also home to two National Park Sites including the JFK Birthplace and the of home of Frederick Law Olmsted the world famous designer Boston's Emerald Necklace and New York's Central Park. The Larz Anderson Auto Museum houses America's oldest car collection. Brookline's proximity to Boston, public transportation and major roadways means visitors have easy access to the bustle of downtown Boston and can slower pace at the end of the day.</p>",
+        "slug": "brookline",
+        "created_date": "2020-07-17T09:56:08Z",
+        "updated_date": "2020-10-07T16:00:40.344Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 34,
+    "fields": {
+        "title": "Cambridge",
+        "text": "<p>Whether you\u2019re looking to indulge in an authentic meal, sail or row the Charles River, kick back in a bookstore or sip a coffee in an outdoor caf\u00e9, Cambridge delivers. This New England city is home of the two most prestigious universities in the nation as well as an eclectic mix of cool shops, student hang outs and varied hip restaurants to please everyone's vibe and palate. Getting around is easy with access to public transit on the MBTA around town or across the river to Boston and cycle rentals with dedicated bike lanes.</p>",
+        "slug": "cambridge",
+        "created_date": "2020-07-17T09:56:26Z",
+        "updated_date": "2020-10-07T16:05:20.859Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 35,
+    "fields": {
+        "title": "Quincy",
+        "text": "<p>Just minutes from downtown Boston via the MBTA, boat or car, the City of Quincy is truly the birthplace of our great American story: With twenty-seven miles of coastline and beaches, acres of beautiful protected parks, the most interesting and diverse dining scene outside of Boston, rock climbing and hiking at the Blue Hills Reservation, world-class golf courses and so much more. Only seven miles from Boston\u2019s Logan International Airport, Quincy is easily accessible by highway. It also has an excellent public transportation service with four MBTA Red Line subway stops and numerous bus and cycling routes.</p>",
+        "slug": "quincy",
+        "created_date": "2020-07-17T09:56:43Z",
+        "updated_date": "2020-10-07T16:54:55.703Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 36,
+    "fields": {
+        "title": "Medical Stays",
+        "text": "<p>Patients and medical professionals travel across the globe to Boston\u2019s medical areas. Our apartments are in close proximity to the services you need and are easily available by public transit or private car.</p><p>Our medical patients and their families appreciate our special attention to providing comfortable, compassionate care. We offer soothing spaces to relax and gather for meals or play with your kids for some tiny normalcy at a chaotic time.</p><p>Healthcare professionals and travel nurses appreciate our experience with your long hours and on-call location restrictions. We keep the details simple so you can spend your precious time off being off!</p>",
+        "slug": "medical-stays",
+        "created_date": "2020-07-18T03:58:06Z",
+        "updated_date": "2020-10-12T01:17:40.941Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 37,
+    "fields": {
+        "title": "Corporate Travel",
+        "text": "<p>Life\u2019s too short to just stay! Even when you\u2019re travelling for business, we want you to live a little! Stay as long as you need, from days to months. With responsive guest services at your fingertips 24/7, you can stay as long as you need -- from days to months..</p><p>Our stylishly furnished units around Greater Boston are designed with your working comfort in mind. You can rely on dedicated laptop-friendly workspaces, complimentary Wi-Fi and fully accessorized kitchens. We believe productivity and comfort are not mutually exclusive! </p>",
+        "slug": "corporate-travel",
+        "created_date": "2020-07-18T03:59:24Z",
+        "updated_date": "2020-10-07T17:42:04.955Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 38,
+    "fields": {
+        "title": "DEDICATED WORKSPACES",
+        "text": "<p>We offer laptop-friendly work areas and complimentary wi-fi for a productive stay.</p>",
+        "slug": "dedicated-workspaces",
+        "created_date": "2020-07-18T04:00:26Z",
+        "updated_date": "2020-07-17T21:44:12.689Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 39,
+    "fields": {
+        "title": "FLEXIBLE, HASSLE-FREE STAYS",
+        "text": "<p>We adapt to you. Our self check-in opens doors any time and we welcome your stay as long as you need.</p>",
+        "slug": "flexible-hassle-free-stays",
+        "created_date": "2020-07-18T04:00:57Z",
+        "updated_date": "2020-11-05T15:21:09.613Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 40,
+    "fields": {
+        "title": "EXCEPTIONAL GUEST SERVICE 24/7",
+        "text": "<p>We provide the information you need with insider tips for a productive day or a fun evening out.</p>",
+        "slug": "exceptional-guest-service-247",
+        "created_date": "2020-07-18T04:01:19Z",
+        "updated_date": "2020-07-17T21:44:28.267Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 41,
+    "fields": {
+        "title": "ACCESS TO HOSPITALS",
+        "text": "<p>The services you need are all close by public transit or private car</p>",
+        "slug": "access-to-hospitals",
+        "created_date": "2020-07-18T04:02:23Z",
+        "updated_date": "2020-09-09T16:28:30.538Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 42,
+    "fields": {
+        "title": "VISITING HEALTHCARE",
+        "text": "<p>Receive quality nursing, health aide and personal care assistance in the comfort of your rental*</p>",
+        "slug": "visiting-healthcare",
+        "created_date": "2020-07-18T04:02:41Z",
+        "updated_date": "2020-10-07T18:05:34.721Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 43,
+    "fields": {
+        "title": "PERSONAL ASSISTANCE",
+        "text": "<p>We can provide services for groceries, prescriptions or personal errands during your stay.</p>",
+        "slug": "personal-assistance",
+        "created_date": "2020-07-18T04:02:59Z",
+        "updated_date": "2020-10-12T01:21:42.888Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 44,
+    "fields": {
+        "title": "* Stars of Boston partners with Private Home Care to provide these services.",
+        "text": "<p>asdfsdfdasdf</p>",
+        "slug": "stars-of-boston-partners-with-private-home-care-to-provide-these",
+        "created_date": "2020-07-18T04:03:23Z",
+        "updated_date": "2020-07-17T21:47:57.994Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 57,
+    "fields": {
+        "title": "Our Mission",
+        "text": "<p>At Stars of Boston, we aim to provide the greatest fully furnished, well-equipped properties with comfortable furniture and modern amenities in Greater Boston. For extended stays or short-term visits, choose from a wide variety of rentals to fit your needs; including studio, one to three bedroom apartments as well as private rooms and full homes. We cater to small or large groups, business travellers, medical professionals, travelling nurses or anyone wanting to enjoy a pleasant stay in our beautiful city. As a recognized leader in the industry, we offer the perfect hotel alternative.</p>",
+        "slug": "our-mission",
+        "created_date": "2020-07-18T04:48:45Z",
+        "updated_date": "2020-07-17T21:52:26.308Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 58,
+    "fields": {
+        "title": "Our Team",
+        "text": "<p>Hello! We are small local team with diverse backgrounds, and lifetime residents of this amazing city so we have inside information and suggestions for your planned visit, short or long. Meet also the latest addition to our team, Cisco the bike rider, and follow his personal Instagram page</p><p><br></p><p>&lt;a href=\"/wiki/Free_and_open-source_software\" title=\"Free and open-source software\"&gt;free and open-source&lt;/a&gt;</p><p><br></p>",
+        "slug": "our-team",
+        "created_date": "2020-07-18T04:49:16Z",
+        "updated_date": "2020-07-17T22:15:31.627Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 59,
+    "fields": {
+        "title": "Contact us",
+        "text": "<p>We are available to answer questions and provide suggestions or connect you with some of our additional personalized services. </p><p>Please contact us using the form or the contact details below: </p><p>(617)-855-9576 </p><p>info@starsofboston.com </p><p>1583 Beacon Street Brookline, MA 02446 </p><p>USA</p>",
+        "slug": "contact-us",
+        "created_date": "2020-07-18T04:49:50Z",
+        "updated_date": "2020-07-17T21:54:06.692Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 60,
+    "fields": {
+        "title": "House Rules",
+        "text": "",
+        "slug": "sdfds",
+        "created_date": "2020-07-18T10:06:37Z",
+        "updated_date": "2020-07-18T10:06:41Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 61,
+    "fields": {
+        "title": "Cancellation Policy",
+        "text": "<p>50% refund it cancelled 60 days prior to arrival</p>",
+        "slug": "asda",
+        "created_date": "2020-07-18T10:07:00Z",
+        "updated_date": "2020-07-18T10:07:02Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 62,
+    "fields": {
+        "title": "Damage Policy",
+        "text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl ipsum,\r\n                                    aliquam\r\n                                    nec commodo nec, blandit a sem. Aenean tempor ultrices vulputate. </p>\r\n\r\n                                <a href=\"#\"><b><u>Download Rental Agreement</u></b></a>\r\n\r\n                                <ul>\r\n                                    <li>I have read and agree to comply with all rental policies and terms.</li>\r\n                                </ul>",
+        "slug": "asda",
+        "created_date": "2020-07-18T10:07:37Z",
+        "updated_date": "2020-07-18T10:07:39Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 63,
+    "fields": {
+        "title": "service time",
+        "text": "<ul><li>Check-in : 3:00 PM</li><li>Check-out : 12:00 PM</li></ul>",
+        "slug": "service-time",
+        "created_date": "2020-07-18T10:12:43Z",
+        "updated_date": "2020-10-07T16:10:40.290Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 64,
+    "fields": {
+        "title": "Overview",
+        "text": "",
+        "slug": "",
+        "created_date": "2020-07-21T10:02:35Z",
+        "updated_date": "2020-07-21T10:02:39Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 65,
+    "fields": {
+        "title": "Overview",
+        "text": "<p>This website is operated by STARS of Boston. Throughout the site, the terms \"we\", \"us\" and \"our\" refer to STARS of Boston. STARS of Boston offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p><p>By visiting our site and/ or making a payment to make a reservation, you engage in our \"Service\" and agree to be bound by the following terms and conditions (\"Terms of Service\", \"Terms\"), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/or contributors of content.</p><p>Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any services. If these Terms of Service are considered an offer, acceptance is expressly limited to these Terms of Service.</p><p>Any new features or tools that are added to the current store shall also be subject to the Terms of Service. You can review the most current version of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by posting updates and/or changes to our website. It is your responsibility to check this page periodically for changes. Your continued use of, or access to the website following the posting of any changes constitutes acceptance of those changes.</p>",
+        "slug": "overview",
+        "created_date": "2020-07-21T09:22:13Z",
+        "updated_date": "2020-10-13T17:17:19.277Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 66,
+    "fields": {
+        "title": "STARS of Boston Terms",
+        "text": "<p>By agreeing to these Terms of Service, you represent that you are at least the age of\r\n                            majority in\r\n                            your state or province of residence, or that you are the age of majority in your state or\r\n                            province\r\n                            of residence and you have given us your consent to allow any of your minor dependents to use\r\n                            this\r\n                            site.</p>\r\n                        <p>You may not use our services for any illegal or unauthorized purpose nor may you, in the use\r\n                            of\r\n                            the\r\n                            Service, violate any laws in your jurisdiction (including but not limited to copyright\r\n                            laws).</p>\r\n                        <p>You must not transmit any worms or viruses or any code of a destructive nature.</p>\r\n                        <p>A breach or violation of any of the Terms will result in an immediate termination of your\r\n                            Services.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:22:39Z",
+        "updated_date": "2020-07-21T09:22:40Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 67,
+    "fields": {
+        "title": "General Conditions",
+        "text": "<p>We reserve the right to refuse service to anyone for any reason at any time.</p>\r\n                        <p>You understand that your content (not including credit card information), may be transferred\r\n                            unencrypted and involve (a) transmissions over various networks; and (b) changes to conform\r\n                            and\r\n                            adapt to technical requirements of connecting networks or devices. Credit card information\r\n                            is\r\n                            always\r\n                            encrypted during transfer over networks.</p>\r\n                        <p>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the\r\n                            Service,\r\n                            use\r\n                            of the Service, or access to the Service or any contact on the website through which the\r\n                            service\r\n                            is\r\n                            provided, without express written permission by us.</p>\r\n                        <p>The headings used in this agreement are included for convenience only and will not limit or\r\n                            otherwise affect these Terms.</p>\r\n                        <p>Modications to the Service and Prices</p>\r\n                        <p>Prices for our products are subject to change without notice.</p>\r\n                        <p>We reserve the right at any time to modify or discontinue the Service (or any part or content\r\n                            thereof) without notice at any time.</p>\r\n                        <p>We shall not be liable to you or to any third-party for any modification, price change,\r\n                            suspension\r\n                            or discontinuance of the Service.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:23:02Z",
+        "updated_date": "2020-07-21T09:23:05Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 68,
+    "fields": {
+        "title": "Services",
+        "text": "<p>We have made every effort to display as accurately as possible the services offered by our\r\n                            company.\r\n                            We cannot guarantee that your computer monitor's display of any color will be accurate.</p>\r\n                        <p>We reserve the right, but are not obligated, to limit the sales of our services to any\r\n                            person,\r\n                            geographic region or jurisdiction. We may exercise this right on a case-by-case basis. We\r\n                            reserve\r\n                            the right to limit the quantities of any products or services that we offer. All\r\n                            descriptions of\r\n                            services and/or service pricing are subject to change at anytime without notice, at the sole\r\n                            discretion of us. We reserve the right to discontinue any product at any time. Any offer for\r\n                            any\r\n                            product or service made on this site is void where prohibited.</p>\r\n                        <p>We do not warrant that the quality of any services, information, or other material purchased\r\n                            or\r\n                            obtained by you will meet your expectations, or that any errors in the Service will be\r\n                            corrected.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:23:23Z",
+        "updated_date": "2020-07-21T09:23:25Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 69,
+    "fields": {
+        "title": "Accuracy of Billing and Account Information",
+        "text": "<p>We reserve the right to refuse our services to anyone. Please note that in the event we that\r\n                            we\r\n                            refuse service, we may attempt to notify you by contacting the email address and/or billing\r\n                            address/phone number provided at the time payment was made.</p>\r\n                        <p>You agree to provide current, complete and accurate purchase and account information for all\r\n                            payments made at this site. You agree to promptly update your account and other information,\r\n                            including your email address and credit card numbers and expiration dates, so that we can\r\n                            complete\r\n                            your transactions and contact you as needed.</p>\r\n                        <p>For additional details, please view our Refund Policy.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:23:49Z",
+        "updated_date": "2020-07-21T09:23:51Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 70,
+    "fields": {
+        "title": "User Comments, Feedback, and Other Submissions",
+        "text": "<p>If, at our request, you send certain specific submissions (for example contest entries) or\r\n                            without a\r\n                            request from us you send creative ideas, suggestions, proposals, plans, or other materials,\r\n                            whether\r\n                            online, by email, by postal mail, or otherwise (collectively, 'comments'), you agree that we\r\n                            may, at\r\n                            any time, without restriction, edit, copy, publish, distribute, translate and otherwise use\r\n                            in\r\n                            any\r\n                            medium any comments that you forward to us. We are and shall be under no obligation (1) to\r\n                            maintain\r\n                            any comments in confidence; (2) to pay compensation for any comments; or (3) to respond to\r\n                            any\r\n                            comments.</p>\r\n                        <p>We may, but have no obligation to, monitor, edit or remove content that we determine in our\r\n                            sole\r\n                            discretion are unlawful, offensive, threatening, libelous, defamatory, pornographic, obscene\r\n                            or\r\n                            otherwise objectionable or violates any party's intellectual property or these Terms of\r\n                            Service.</p>\r\n                        <p>You agree that your comments will not violate any right of any third party, including\r\n                            copyright,\r\n                            trademark, privacy, personality or other personal or proprietary right. You further agree\r\n                            that\r\n                            your\r\n                            comments will not contain libelous or otherwise unlawful, abusive or obscene material, or\r\n                            contain\r\n                            any computer virus or other malware that could in any way affect the operation of the\r\n                            Service or\r\n                            any\r\n                            related website. You may not use a false e-mail address, pretend to be someone other than\r\n                            yourself,\r\n                            or otherwise mislead us and/or third parties as to the origin of any comments. You are\r\n                            solely\r\n                            responsible for any comments you make and their accuracy. We take no responsibility and\r\n                            assume\r\n                            no\r\n                            liability for any comments posted by you or any third-party.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:24:54Z",
+        "updated_date": "2020-07-21T09:24:57Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 74,
+    "fields": {
+        "title": "Errors, Inaccuracies, and Omissions",
+        "text": "<p>Occasionally there may be information on our site or in the Service that contains\r\n                            typographical\r\n                            errors, inaccuracies or omissions that may relate to service descriptions, pricing and\r\n                            availability.\r\n                            We reserve the right to correct any errors, inaccuracies or omissions, and to change or\r\n                            update\r\n                            information or cancel orders if any information in the Service or on any related website is\r\n                            inaccurate at any time without prior notice (including after you have submitted your\r\n                            order).</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:25:15Z",
+        "updated_date": "2020-07-21T09:25:17Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 75,
+    "fields": {
+        "title": "Prohibited Uses",
+        "text": "<p>In addition to other prohibitions as set forth in the Terms of Service, you are prohibited\r\n                            from\r\n                            using\r\n                            the site or its content: (a) for any unlawful purpose; (b) to solicit others to perform or\r\n                            participate in any unlawful acts; (c) to violate any international, federal, provincial or\r\n                            state\r\n                            regulations, rules, laws, or local ordinances; (d) to infringe upon or violate our\r\n                            intellectual\r\n                            property rights or the intellectual property rights of others; (e) to harass, abuse, insult,\r\n                            harm,\r\n                            defame, slander, disparage, intimidate, or discriminate based on gender, sexual orientation,\r\n                            religion, ethnicity, race, age, national origin, or disability; (f) to submit false or\r\n                            misleading\r\n                            information; (g) to upload or transmit viruses or any other type of malicious code that will\r\n                            or\r\n                            may\r\n                            be used in any way that will affect the functionality or operation of the Service or of any\r\n                            related\r\n                            website, other websites, or the Internet; (h) to collect or track the personal information\r\n                            of\r\n                            others; (i) to spam, phish, pharm, pretext, spider, crawl, or scrape; (j) for any obscene or\r\n                            immoral\r\n                            purpose; or (k) to interfere with or circumvent the security features of the Service or any\r\n                            related\r\n                            website, other websites, or the Internet. We reserve the right to terminate your use of the\r\n                            Service\r\n                            or any related website for violating any of the prohibited uses.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:25:36Z",
+        "updated_date": "2020-07-21T09:25:38Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 76,
+    "fields": {
+        "title": "Disclaimer of Warranties; Limitation of Liability",
+        "text": "<p>We do not guarantee, represent or warrant that your use of our service will be uninterrupted,\r\n                            timely, secure or error-free.</p>\r\n                        <p>You agree that from time to time we may remove the service for indefinite periods of time or\r\n                            cancel\r\n                            the service at any time, without notice to you.</p>\r\n                        <p>You expressly agree that your use of, or inability to use, the service is at your sole risk.\r\n                            The\r\n                            service and all products and services delivered to you through the service are (except as\r\n                            expressly\r\n                            stated by us) provided 'as is' and 'as available' for your use, without any representation,\r\n                            warranties or conditions of any kind, either express or implied, including all implied\r\n                            warranties or\r\n                            conditions of merchantability, merchantable quality, fitness for a particular purpose,\r\n                            durability,\r\n                            title, and non-infringement.</p>\r\n                        <p>In no case shall STARS of Boston, our officers, employees, affiliates, agents, contractors,\r\n                            interns,\r\n                            suppliers, service providers or licensors be liable for any injury, loss, claim, or any\r\n                            direct,\r\n                            indirect, incidental, punitive, special, or consequential damages of any kind, including,\r\n                            without\r\n                            limitation lost profits, lost revenue, lost savings, loss of data, replacement costs, or any\r\n                            similar\r\n                            damages, whether based in contract, tort (including negligence), strict liability or\r\n                            otherwise,\r\n                            arising from your use of any of the service or any products procured using the service, or\r\n                            for\r\n                            any\r\n                            other claim related in any way to your use of the service or any product, including, but not\r\n                            limited\r\n                            to, any errors or omissions in any content, or any loss or damage of any kind incurred as a\r\n                            result\r\n                            of the use of the service or any content posted, transmitted, or otherwise made available\r\n                            via\r\n                            the\r\n                            service, even if advised of their possibility. Because some states or jurisdictions do not\r\n                            allow\r\n                            the\r\n                            exclusion or the limitation of liability for consequential or incidental damages, in such\r\n                            states\r\n                            or\r\n                            jurisdictions, our liability shall be limited to the maximum extent permitted by law.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:26:03Z",
+        "updated_date": "2020-07-21T09:26:05Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 77,
+    "fields": {
+        "title": "Indemnification",
+        "text": "<p>You agree to indemnify, defend and hold harmless STARS of Boston and our parent,\r\n                            subsidiaries,\r\n                            affiliates, partners, officers, directors, agents, contractors, licensors, service\r\n                            providers,\r\n                            subcontractors, suppliers, interns and employees, harmless from any claim or demand,\r\n                            including\r\n                            reasonable attorneys' fees, made by any third-party due to or arising out of your breach of\r\n                            these\r\n                            Terms of Service or the documents they incorporate by reference, or your violation of any\r\n                            law or\r\n                            the\r\n                            rights of a third-party.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:26:19Z",
+        "updated_date": "2020-07-21T09:26:21Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 78,
+    "fields": {
+        "title": "Severability",
+        "text": "<p>In the event that any provision of these Terms of Service is determined to be unlawful, void\r\n                            or\r\n                            unenforceable, such provision shall nonetheless be enforceable to the fullest extent\r\n                            permitted\r\n                            by\r\n                            applicable law, and the unenforceable portion shall be deemed to be severed from these Terms\r\n                            of\r\n                            Service, such determination shall not affect the validity and enforceability of any other\r\n                            remaining\r\n                            provisions.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:26:36Z",
+        "updated_date": "2020-07-21T09:26:38Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 79,
+    "fields": {
+        "title": "Termination",
+        "text": "<p>The obligations and liabilities of the parties incurred prior to the termination date shall\r\n                            survive\r\n                            the termination of this agreement for all purposes.</p>\r\n                        <p>These Terms of Service are effective unless and until terminated by either you or us. You may\r\n                            terminate these Terms of Service at any time by notifying us that you no longer wish to use\r\n                            our\r\n                            Services, or when you cease using our site. If in our sole judgment you fail, or we suspect\r\n                            that\r\n                            you\r\n                            have failed, to comply with any term or provision of these Terms of Service, we also may\r\n                            terminate\r\n                            this agreement at any time without notice and you will remain liable for all amounts due up\r\n                            to\r\n                            and\r\n                            including the date of termination; and/or accordingly may deny you access to our Services\r\n                            (or\r\n                            any\r\n                            part thereof).</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:26:53Z",
+        "updated_date": "2020-07-21T09:26:55Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 80,
+    "fields": {
+        "title": "Entire Agreement",
+        "text": "<p>The failure of us to exercise or enforce any right or provision of these Terms of Service\r\n                            shall\r\n                            not\r\n                            constitute a waiver of such right or provision.</p>\r\n                        <p>These Terms of Service and any policies or operating rules posted by us on this site or in\r\n                            respect\r\n                            to The Service constitutes the entire agreement and understanding between you and us and\r\n                            govern\r\n                            your\r\n                            use of the Service, superseding any prior or contemporaneous agreements, communications and\r\n                            proposals, whether oral or written, between you and us (including, but not limited to, any\r\n                            prior\r\n                            versions of the Terms of Service).</p>\r\n                        <p>Any ambiguities in the interpretation of these Terms of Service shall not be construed\r\n                            against\r\n                            the\r\n                            drafting party.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:27:14Z",
+        "updated_date": "2020-07-21T09:27:16Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 81,
+    "fields": {
+        "title": "Govering Law",
+        "text": "<p>These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of the Commonwealth of  Massachusetts, United States of America.</p>",
+        "slug": "govering-law",
+        "created_date": "2020-07-21T09:27:34Z",
+        "updated_date": "2020-10-13T17:56:02.951Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 82,
+    "fields": {
+        "title": "Changes to Terms of Service",
+        "text": "<p>You can review the most current version of the Terms of Service at any time at this page.\r\n                        </p>\r\n                        <p>You will be notified of any changes to the Terms of Service, on the Terms of Service\r\n                            Page.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:27:53Z",
+        "updated_date": "2020-07-21T09:27:54Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 83,
+    "fields": {
+        "title": "Contact Information",
+        "text": "<p>Questions about the Terms of Service, can be sent via email to info@starsofboston.com or from\r\n                            the <a href=\"/contact\">contact us</a> page.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:28:29Z",
+        "updated_date": "2020-07-21T09:28:32Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 84,
+    "fields": {
+        "title": "Privacy Policy",
+        "text": "<p>This privacy policy is meant to help you understand what information we collect, use, and how\r\n                            we\r\n                            protect your information.</p>\r\n                        <p>If you have questions about our privacy practices that are not addressed in this Privacy\r\n                            Policy,\r\n                            please contact us.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:31:18Z",
+        "updated_date": "2020-07-21T09:31:20Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 85,
+    "fields": {
+        "title": "What personal information do we collect from the people that visit our website?",
+        "text": "<p>We collect information about you that you voluntarily provide us when you:</p><p>(i) Make a reservation through our website </p><p>(ii) Submit a comment to us through our contact us page. </p><p>(iii) Contact our customer service. </p><p>This information may include your name, email, phone number mailing address and any other information you choost to provide us when submitting a comment through our website or via email.</p><p><br></p>",
+        "slug": "what-personal-information-do-we-collect-from-the-people-that-vis",
+        "created_date": "2020-07-21T09:31:36Z",
+        "updated_date": "2020-07-21T09:10:01.486Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 86,
+    "fields": {
+        "title": "How do we use your information?",
+        "text": "<p>We may use your information in the following ways:</p>\r\n                        <p>To follow up after correspondence (comments, suggestions and help requests;\r\n                            To process your transactions;\r\n                            To send you a reservation confirmation email and information regarding your stay with us;\r\n                            and\r\n                            To protect STARS of Boston Services and the right of Users and others to enforce the terms\r\n                            of the\r\n                            STARS of Boston Services.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:31:56Z",
+        "updated_date": "2020-07-21T09:31:58Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 87,
+    "fields": {
+        "title": "Sharing of Information",
+        "text": "<p>We share information with:</p>\r\n                        <p>Other companies that we have hired to provide services on our behalf;\r\n                            Businesses and members of the public, when data is aggregated and does not personally\r\n                            identify you;\r\n                            Other third parties where necessary for our business purposes or as required by law; and\r\n                            Otherwise with your consent.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:32:15Z",
+        "updated_date": "2020-07-21T09:32:19Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 91,
+    "fields": {
+        "title": "Security",
+        "text": "<p>Your personal information is contained behind secured networks and is only accessible by a\r\n                            limited\r\n                            number of persons who have special access rights to such systems, and are required to keep\r\n                            the\r\n                            information confidential. In addition, all sensitive/credit information you supply is\r\n                            encrypted via\r\n                            Secure Socket Layer (SSL) technology. We maintain technical, physical, and administrative\r\n                            security\r\n                            measures designed to provide reasonable protection for your information against loss,\r\n                            misuse,\r\n                            unauthorized access, disclosure, and alteration. The security measures include firewalls,\r\n                            data\r\n                            encryption, physical access controls to our data centers, and information access\r\n                            authorization\r\n                            controls.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:33:55Z",
+        "updated_date": "2020-07-21T09:33:57Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 92,
+    "fields": {
+        "title": "Payment",
+        "text": "<p>We use BrainTree for processing payments. We/BrainTree do not store your card data on\r\n                            our/their\r\n                            servers. The data is encrypted through the Payment Card Industry Data Security Standard\r\n                            (PCI-DSS)\r\n                            when processing payment. Your purchase transaction data is only used as long as is necessary\r\n                            to\r\n                            complete your purchase transaction. After that is complete, your purchase transaction\r\n                            information is\r\n                            not saved.</p>\r\n                        <p>Our payment gateway adheres to the standards set by PCI-DSS as managed by the PCI Security\r\n                            Standards\r\n                            Council, which is a joint effort of brands like Visa, MasterCard, American Express and\r\n                            Discover.</p>\r\n                        <p>PCI-DSS requirements ensures the secure handling of credit card information by our store and\r\n                            its\r\n                            service providers.</p>\r\n                        <p>For more insight, you may also want to read the privacy policy of BrainTree</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:34:17Z",
+        "updated_date": "2020-07-21T09:34:19Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 93,
+    "fields": {
+        "title": "Information you share",
+        "text": "<p>When you provide us with personal information to complete a transaction, verify your credit\r\n                            card,\r\n                            pay for an online consultation, we imply that you consent to our collecting it and using it\r\n                            for that\r\n                            specific reason only.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:35:08Z",
+        "updated_date": "2020-07-21T09:35:11Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 94,
+    "fields": {
+        "title": "Disclosure",
+        "text": "<p>We may disclose your personal information if we are required by law to do so, or if you\r\n                            violate our\r\n                            Terms of Service</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:35:25Z",
+        "updated_date": "2020-07-21T09:35:27Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 95,
+    "fields": {
+        "title": "Third-party links",
+        "text": "<p>Occasionally, at our discretion, we may include or offer third-party products or services on\r\n                            our\r\n                            website. These third-party sites have separate and independent privacy policies. We\r\n                            therefore have\r\n                            no responsibility or liability for the content and activities of these linked sites.\r\n                            Nonetheless, we\r\n                            seek to protect the integrity of our site and welcome any feedback about these sites.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:35:47Z",
+        "updated_date": "2020-07-21T09:35:49Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 96,
+    "fields": {
+        "title": "California Online Privacy Protection Act",
+        "text": "<p>CalOPPA is the first state law in the nation to require commercial websites and online\r\n                            services to\r\n                            post a privacy policy. The law's reach stretches well beyond California to require any\r\n                            person or\r\n                            company in the United States (and conceivably the world) that operates websites collecting\r\n                            Personally Identifiable Information from California consumers to post a conspicuous privacy\r\n                            policy\r\n                            on its website stating exactly the information being collected and those individuals or\r\n                            companies\r\n                            with whom it is being shared. You can see more at CalOPPA</p>\r\n                        <p>According to CalOPPA, we agree to the following:</p>\r\n                        <p>Users can visit our site anonymously.</p>\r\n                        <p>Once this privacy policy is created, we will add a link to it on our home page or as a\r\n                            minimum, on\r\n                            the first significant page after entering our website.</p>\r\n                        <p>Our Privacy Policy link includes the word 'Privacy' and can easily be found on the page\r\n                            specified\r\n                            above.</p>\r\n                        <p>You will be notified of any Privacy Policy changes on our Privacy Policy Page</p>\r\n                        <p>Can change your personal information:</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:36:40Z",
+        "updated_date": "2020-07-21T09:36:42Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 97,
+    "fields": {
+        "title": "Children's Privacy",
+        "text": "<p>STARS of Boston services are intended for a general audience and are not directed at\r\n                            individuals\r\n                            under the age of majority. We do not knowinlgy collect information from children and do not\r\n                            specifically advertise to children. If we obtain knowledge that we have collected\r\n                            information from a\r\n                            child, we will promptly delete it. If you believe we have mistakenly or unintentionally\r\n                            collected\r\n                            information from a child, contact us.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:37:04Z",
+        "updated_date": "2020-07-21T09:37:06Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 98,
+    "fields": {
+        "title": "Contact",
+        "text": "<p><span style=\"color: rgb(58, 58, 58);\">If you have general questions about our Privacy Policy and practices or questions about your personal data, you may&nbsp;</span><a href=\"/Contact\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"color: rgb(36, 130, 220); background-color: rgb(255, 255, 255);\">contact us</a><span style=\"color: rgb(58, 58, 58);\">.</span></p>",
+        "slug": "contact",
+        "created_date": "2020-07-21T09:37:31Z",
+        "updated_date": "2020-10-12T16:49:49.029Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 99,
+    "fields": {
+        "title": "Payment Policy",
+        "text": "<p>When you confirm a reservation through our website, you have authorized STARS of Boston to collect and remit various fees and charges that will be due and owing by you in connection with your use of the the Accommodation, including, without limitation, the prepayment amount as set out in the Reservation Summary, Accommodation Fees, and all fees, charges and taxes payable with respect to your booking and use and occupancy of the Accommodation and use of any services provided. Upon receipt by you of the Confirmation of Booking, you will immediately be required to pay, and STARS of Boston will charge the debit or credit card that you have supplied, an amount equal to the prepayment amount required to be paid on confirmation of booking as shall be set out in the Reservation Summary (which may be the entire amount of the fees due and all taxes or other fees dues with respect to your Booking).</p>",
+        "slug": "payment-policy",
+        "created_date": "2020-07-21T09:38:24Z",
+        "updated_date": "2020-10-12T16:23:39.696Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 100,
+    "fields": {
+        "title": "Cancellation Policy",
+        "text": "<p>You can cancel for free, without any charges, within 4 hours of making your reservation.</p>\r\n                        <p>After the 4 hour period, the following policy applies:</p>\r\n                        <p>(i) If you are cancelling 60 days prior to your arrival, you will receive a 50% refund.</p>\r\n                        <p>(ii) If your cancellation is within 60 days of your arrival, no refund will be issued.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:38:44Z",
+        "updated_date": "2020-07-21T09:38:45Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 101,
+    "fields": {
+        "title": "Refundable Security Deposit",
+        "text": "<p>There is a refundable security deposit of the amount $500 for every reservation with us. If\r\n                            paying via a credit or a debit card, the security deposit will be an authorization on your\r\n                            card. No money will actually be taken out of your account, unless there are damages. The\r\n                            authorization will be made 2 days prior to arrival and the hold will be released within 7\r\n                            days of departure depending on your bank. Note for international banks: The release may take\r\n                            longer up to 30 days.</p>",
+        "slug": "",
+        "created_date": "2020-07-21T09:39:16Z",
+        "updated_date": "2020-07-21T09:39:18Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 102,
+    "fields": {
+        "title": "service time",
+        "text": "<p>Check-in : 3:00 PM</p><p>Check-out : 10:00 AM</p>",
+        "slug": "service-time",
+        "created_date": "2020-07-22T00:52:07Z",
+        "updated_date": "2020-08-12T04:04:02.938Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 103,
+    "fields": {
+        "title": "House Rules",
+        "text": "<p><span class=\"ql-size-small\">No smoking</span></p><p><span class=\"ql-size-small\">Complimentary Wi-Fi</span></p><p><span class=\"ql-size-small\">No parties or events</span></p><p><span style=\"color: rgb(58, 58, 58);\" class=\"ql-size-small\">No pets</span></p>",
+        "slug": "house-rules",
+        "created_date": "2020-07-22T00:52:31Z",
+        "updated_date": "2020-08-12T04:07:51.239Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 104,
+    "fields": {
+        "title": "Cancellation Policy",
+        "text": "<p><span style=\"color: rgb(33, 37, 41);\">You can cancel for free, without any charges, within 4 hours of making your reservation.&nbsp;After the 4 hour period, the following policy applies:</span></p><p><span style=\"color: rgb(33, 37, 41);\">(i) If you are cancelling 60 days prior to your arrival, you will receive a 50% refund.</span></p><p><span style=\"color: rgb(33, 37, 41);\">(ii) If your cancellation is within 60 days of your arrival, no refund will be issued.</span></p>",
+        "slug": "cancellation-policy",
+        "created_date": "2020-07-22T00:52:55Z",
+        "updated_date": "2020-08-12T04:10:50.511Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 105,
+    "fields": {
+        "title": "Damage Policy",
+        "text": "<p class=\"ql-align-justify\">There is a refundable security deposit of the amount $500 for every reservation with us. If paying via a credit or a debit card, the security deposit will be an authorization on your card. No money will actually be taken out of your account, unless there are damages. The authorization will be made 2 days prior to arrival and the hold will be released within 7 days of departure depending on your bank. Note for international banks: The release may take longer up to 30 days.</p>",
+        "slug": "damage-policy",
+        "created_date": "2020-07-22T00:53:15Z",
+        "updated_date": "2020-08-17T01:40:16.104Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 106,
+    "fields": {
+        "title": "",
+        "text": "",
+        "slug": "",
+        "created_date": "2020-07-31T14:54:22Z",
+        "updated_date": "2020-07-31T14:54:25Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 107,
+    "fields": {
+        "title": "Anna",
+        "text": "<p>\u201cThe place is in a perfect location, close to the hospitals, shopping, and trains. STARS is a wonderful host. Communications were flawless. We loved our stay and whenever we return we would love to stay at this place again! We had a wonderful experience. \u201d</p>",
+        "slug": "anna",
+        "created_date": "2020-07-31T14:54:41Z",
+        "updated_date": "2020-10-03T22:06:24.131Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 108,
+    "fields": {
+        "title": "Jhon",
+        "text": "<p><span style=\"color: rgb(58, 58, 58);\">\u201c</span>Great place to stay. Highly recommended if you\u2019re looking for an affordable place close to BU or back bay area. It is so convenient that st. Mary\u2019s station is right in front of the house. Several spots for dining offer great tastes. Host replies very quick even in the weekend.<span style=\"color: rgb(58, 58, 58);\">\u201c</span></p>",
+        "slug": "jhon",
+        "created_date": "2020-07-31T14:54:49Z",
+        "updated_date": "2020-10-03T22:03:17.912Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 109,
+    "fields": {
+        "title": "Jane",
+        "text": "<p>\u201cThis is the third time we stayed at this Airbnb, and we loved it, as usual. The location is terrific, and the apartment met our needs for our two week stay in Boston. We would recommend to anyone looking to explore Boston and we will most certainly be back! STARS is a wonderful host\u201d</p>",
+        "slug": "jane",
+        "created_date": "2020-07-31T14:54:54Z",
+        "updated_date": "2020-10-03T22:05:41.578Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 110,
+    "fields": {
+        "title": "Tyson",
+        "text": "<p>\u201cThis is a wonderful place perfectly placed in Brookline. Kama and her team were incredibly responsive to all our questions and requests. If you are looking for a larger accommodation supported by an A+ host, I strongly recommend STARS and this spot! \u201d</p>",
+        "slug": "tyson",
+        "created_date": "2020-07-31T14:55:01Z",
+        "updated_date": "2020-10-03T22:06:06.868Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 111,
+    "fields": {
+        "title": "Insurance Housing and Fire Victims",
+        "text": "<p>STARS is your Greater Boston solution for Temporary Relocation, Catastrophe/Disaster Response and Additional Living Expense (ALE) Housing. We work with insurance adjusters and housing coordinators across the US providing short or extended stay options for those displaced from their homes. By combining our vast experience offering temporary, flexible term living with our compassionate guest services, we offer a wide array of turn-key property options cost effectively with less stress. Homeowners, First Responders and Insurance Professionals rely on us as the preferred Insurance Housing provider in the wake of any disaster or loss of use.</p>",
+        "slug": "insurance-housing-and-fire-victims",
+        "created_date": "2020-10-27T18:24:09Z",
+        "updated_date": "2020-11-04T19:58:27.965Z"
+    }
+},
+{
+    "model": "content.content",
+    "pk": 112,
+    "fields": {
+        "title": "Quick search your perfect accommodation",
+        "text": "<p>Short term furnished apartment rentals in Boston\r\n</p>",
+        "slug": "",
+        "created_date": "2020-11-17T18:20:18Z",
+        "updated_date": "2020-11-17T18:20:23Z"
+    }
+}
+]
