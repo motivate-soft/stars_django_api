@@ -106,15 +106,6 @@ if os.getenv('GAE_APPLICATION', None):
             'PASSWORD': env('DB_PASSWORD'),
         }
     }
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'HOST': "/cloudsql/stars-website-react-2:us-east1:stars-website",
-    #         'NAME': "stars_react_db",
-    #         'USER': "root",
-    #         'PASSWORD': "admin",
-    #     }
-    # }
 else:
     DATABASES = {
         'default': {
@@ -122,8 +113,8 @@ else:
             'HOST': '127.0.0.1',
             'PORT': '3306',
             'NAME': 'starsofboston',
-            'USER': 'root',
-            'PASSWORD': '',
+            'USER': 'admin',
+            'PASSWORD': 'Admin123$',
         }
     }
 # [END db_setup]
