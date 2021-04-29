@@ -3,7 +3,7 @@ import base64
 from django.core.files.base import ContentFile
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,19 +15,6 @@ from media.serializer import MediaSerializer
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                     MEDIA LIST VIEW
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-class PropertyMediaListView(ListAPIView):
-    queryset = Media.objects.all()
-    serializer_class = MediaSerializer
-
-    def get_queryset(self):
-        property_id = self.request.query_params.get('property_id', '')
-        if property_id == '' or property_id == 'null' or property_id == 'undefined':
-            queryset = Media.objects.order_by('-created_date')
-        else:
-            queryset = Media.objects.filter(property=property_id).order_by('order')
-        return queryset
 
 
 class MediaPagination(PageNumberPagination):
@@ -84,9 +71,17 @@ class MediaMultipleUpdate(APIView):
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-class MediaCreateView(CreateAPIView):
+class MediaListCreateView(ListCreateAPIView):
     queryset = Media.objects.all()
     serializer_class = MediaSerializer
+
+    def get_queryset(self):
+        property_id = self.request.query_params.get('property_id', '')
+        if property_id == '' or property_id == 'null' or property_id == 'undefined':
+            queryset = Media.objects.order_by('-created_date')
+        else:
+            queryset = Media.objects.filter(property=property_id).order_by('order')
+        return queryset
 
     def post(self, request, *args, **kwargs):
         if len(request.FILES) != 0:

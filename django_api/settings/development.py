@@ -10,10 +10,19 @@ INSTALLED_APPS += [
     'debug_toolbar',
 ]
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'NAME': 'starsofboston',
+        'USER': 'root',
+        'PASSWORD': '',
+    }
+}
+
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = []
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

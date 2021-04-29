@@ -4,14 +4,6 @@ import os
 import sys
 import environ
 
-try:
-    import googleclouddebugger
-
-    googleclouddebugger.enable(
-        breakpoint_enable_canary=True
-    )
-except ImportError:
-    pass
 
 env = environ.Env()
 env.read_env()
