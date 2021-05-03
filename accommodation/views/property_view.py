@@ -2,7 +2,7 @@ from urllib.parse import parse_qs
 import urllib.parse as urlparse
 
 import xml.etree.ElementTree as et
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, ListCreateAPIView
 
 from accommodation.models import Category
 from accommodation.models.property import Property
@@ -71,14 +71,13 @@ Admin View
 """
 
 
-class AdminPropertyListAPIView(ListAPIView):
-    serializer_class = AdminPropertyListItemSerializer
+class AdminPropertyListCreateAPIView(ListCreateAPIView):
     queryset = Property.objects.all()
 
-
-class AdminPropertyCreateAPIView(CreateAPIView):
-    queryset = Property.objects.all()
-    serializer_class = AdminPropertyDetailSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return AdminPropertyDetailSerializer
+        return AdminPropertyListItemSerializer
 
 
 class AdminPropertyRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):

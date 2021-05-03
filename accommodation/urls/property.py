@@ -1,7 +1,8 @@
 from django.urls import path
 
-from accommodation.views.property_view import PropertyListAPIView, PropertyDetailRetrieveAPIView, PropertyMapItemListAPIView, \
-    AdminPropertyCreateAPIView, AdminPropertyRetrieveUpdateDestroyAPIView, AdminPropertyRetrieveUpdateDestroyBySlugAPIView, AdminPropertyListAPIView
+from accommodation.views.property_view import PropertyListAPIView, PropertyDetailRetrieveAPIView, \
+    PropertyMapItemListAPIView, AdminPropertyRetrieveUpdateDestroyAPIView, \
+    AdminPropertyRetrieveUpdateDestroyBySlugAPIView, AdminPropertyListCreateAPIView
 
 urlpatterns = [
     #     Guest API
@@ -10,8 +11,7 @@ urlpatterns = [
     path('listing/<slug:slug>', PropertyDetailRetrieveAPIView.as_view()),
 
     #     Admin API
-    path('create', AdminPropertyCreateAPIView.as_view()),
     path('<int:pk>', AdminPropertyRetrieveUpdateDestroyAPIView.as_view()),
     path('<slug:slug>', AdminPropertyRetrieveUpdateDestroyBySlugAPIView.as_view()),
-    path('', AdminPropertyListAPIView.as_view()),
+    path('', AdminPropertyListCreateAPIView.as_view()),
 ]

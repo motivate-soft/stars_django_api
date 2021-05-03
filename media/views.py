@@ -83,28 +83,27 @@ class MediaListCreateView(ListCreateAPIView):
             queryset = Media.objects.filter(property=property_id).order_by('order')
         return queryset
 
-    def post(self, request, *args, **kwargs):
-        if len(request.FILES) != 0:
-            request.data['title'] = request.FILES['file'].name
-            return self.create(request, *args, **kwargs)
-        else:
-            property_id = request.data.get('property', None)
-            title = request.data.get('title', None)
-            image_data = request.data.get('imageData', None)
+    def create(self, request, *args, **kwargs):
+        request.data['title'] = request.FILES['file'].name
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        media_instance = serializer.save()
+        property_id = request.data.get('property', None)
 
-            # Parse base64 string
-            img_format, img_b64_str = image_data.split(';base64,')
-            # ext = img_format.split('/')[-1]
-            imageObj = ContentFile(base64.b64decode(img_b64_str), request.data['title'])
+        if property_id:
+            Property.objects.get(pk=property_id).gallery_imgs.add(media_instance)
 
-            # Cropped image property id
-            media_instance = Media.objects.create(title=title, file=imageObj)
-            # property_instance = Property.objects.get(pk=property_id).gallery_imgs.add(media_instance)
+        # Parse base64 string
+        # img_format, img_b64_str = image_data.split(';base64,')
+        # # ext = img_format.split('/')[-1]
+        # imageObj = ContentFile(base64.b64decode(img_b64_str), request.data['title'])
+        #
+        # # Cropped image property id
+        # media_instance = Media.objects.create(title=title, file=imageObj)
 
-            serializer = MediaSerializer(media_instance)
-            headers = self.get_success_headers(serializer.data)
+        headers = self.get_success_headers(serializer.data)
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class MediaRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):

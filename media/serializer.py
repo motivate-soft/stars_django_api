@@ -1,6 +1,7 @@
 import os
 
 from django.db import models
+from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,6 +18,12 @@ class MediaSerializer(serializers.ModelSerializer):
         )
         extra_kwargs = {'file': {'required': False, 'validators': []}}
 
+    @receiver(pre_delete, sender=Media)
+    def media_delete(sender, instance, **kwargs):
+        # Pass false so FileField doesn't save the model.
+        if instance.file:
+            instance.file.delete(False)
+    #
     # @receiver(models.signals.post_delete, sender=Media)
     # def auto_delete_file_on_delete(sender, instance, **kwargs):
     #     """

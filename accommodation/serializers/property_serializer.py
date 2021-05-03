@@ -160,6 +160,12 @@ class AdminPropertyDetailSerializer(serializers.ModelSerializer):
 
         # Set property's gallery images
         if gallery_imgs:
+            order = 1
+
+            for image_id in gallery_imgs:
+                Media.objects.filter(pk=image_id).update(order=order)
+                order += 1
+
             images = Media.objects.filter(id__in=gallery_imgs)
             instance.gallery_imgs.set(images)
 
@@ -202,12 +208,15 @@ class AdminPropertyDetailSerializer(serializers.ModelSerializer):
             instance.featured_img = image
 
         # Update property's gallery images
+
         if gallery_imgs:
-            images = Media.objects.filter(id__in=gallery_imgs)
             order = 1
-            for obj in images:
-                Media.objects.filter(pk=obj.id).update(order=order + 1)
+
+            for image_id in gallery_imgs:
+                Media.objects.filter(pk=image_id).update(order=order)
                 order += 1
+
+            images = Media.objects.filter(id__in=gallery_imgs)
             instance.gallery_imgs.set(images)
 
         if similar_properties:
