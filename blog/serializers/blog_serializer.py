@@ -10,7 +10,7 @@ class BlogListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['slug', 'title', 'short_description', 'author_full_name', 'published_on']
+        fields = ['slug', 'title','content', 'author_full_name', 'published_on']
 
 
 class BlogDetailSerializer(serializers.ModelSerializer):
@@ -20,5 +20,5 @@ class BlogDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Blog
-        fields = ['slug', 'title', 'body', 'author_full_name', 'published_on', 'short_description', 'created_date',
+        fields = ['slug', 'title', 'content','tags', 'author_full_name', 'published_on', 'created_date',
                   'updated_date']
