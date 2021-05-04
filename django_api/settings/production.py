@@ -2,6 +2,7 @@ from .base import *
 
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+
 # ALLOWED_HOSTS = [
 #     ".localhost",
 #     "127.0.0.1",
@@ -57,7 +58,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Email API setup
+"""
+Email API setup
+"""
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'  # this is exactly the value 'apikey'
