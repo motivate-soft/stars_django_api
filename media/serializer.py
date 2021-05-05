@@ -59,6 +59,18 @@ class MediaSerializer(serializers.ModelSerializer):
     #     return obj.file.url
 
 
+class MediaItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = (
+            'id', 'title', 'file', 'order', 'created_date', 'updated_date'
+        )
+        extra_kwargs = {'file': {'required': False, 'validators': []}}
+
+    def to_representation(self, instance):
+        return self.context['request'].build_absolute_uri('/' + instance.file.url)
+
+
 class PropertyMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media

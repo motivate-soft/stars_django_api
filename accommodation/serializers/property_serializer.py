@@ -241,9 +241,3 @@ class AdminPropertyDetailSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
-
-    # def get_amenity_ids(self, obj):
-    #     amenity_ids = obj.amenities.all().values_list('id', flat=True).order_by('id')
-    #     # Ids = obj.amenities.all().values('id')
-    #     print(obj.amenities.all().values_list('id', flat=True).order_by('id'))
-    #     return amenity_ids

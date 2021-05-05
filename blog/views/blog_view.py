@@ -1,7 +1,8 @@
 from rest_framework import generics
 
 from blog.models import Blog
-from blog.serializers.blog_serializer import BlogListSerializer, BlogDetailSerializer
+from blog.serializers.blog_serializer import BlogListSerializer, BlogDetailSerializer, AdminBlogDetailSerializer, \
+    AdminBlogListSerializer
 
 
 class BlogListCreateAPIView(generics.ListCreateAPIView):
@@ -10,8 +11,8 @@ class BlogListCreateAPIView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return BlogDetailSerializer
-        return BlogListSerializer
+            return AdminBlogDetailSerializer
+        return AdminBlogListSerializer
 
 
 class BlogRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
