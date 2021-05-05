@@ -100,7 +100,9 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
 }
 
-# dj-rest-auth setting
+"""
+dj-rest-auth setting
+"""
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'token'
 # JWT_AUTH_REFRESH_COOKIE = 'refresh-token'
@@ -115,7 +117,9 @@ REST_AUTH_SERIALIZERS = {
         'authentication.serializers.CustomPasswordResetSerializer',
 }
 
-# djangorestframework-simplejwt setting
+"""
+djangorestframework-simplejwt
+"""
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
@@ -151,6 +155,23 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+"""
+django-storages s3 setup
+"""
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# The AWS region to connect to.
+AWS_REGION = "us-east-2"
+# The AWS access key to use.
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+# The AWS secret access key to use.
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.amazonaws.com'
+
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
 
 STATIC_ROOT = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
