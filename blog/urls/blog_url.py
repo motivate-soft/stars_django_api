@@ -4,5 +4,5 @@ from blog.views.blog_view import BlogListCreateAPIView, BlogRetrieveUpdateDestro
 
 urlpatterns = [
     path('', BlogListCreateAPIView.as_view(), name='blog-list-create-view'),
-    path('<slug>', BlogRetrieveUpdateDestroyAPIView.as_view(), name='blog-detail'),
+    path('<int:pk>', BlogRetrieveUpdateDestroyAPIView.as_view(), name='blog-detail'),
 ]

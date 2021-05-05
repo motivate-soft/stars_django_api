@@ -68,7 +68,7 @@ class MediaItemSerializer(serializers.ModelSerializer):
         extra_kwargs = {'file': {'required': False, 'validators': []}}
 
     def to_representation(self, instance):
-        return self.context['request'].build_absolute_uri('/' + instance.file.url)
+        return instance.file.url
 
 
 class PropertyMediaSerializer(serializers.ModelSerializer):
@@ -85,5 +85,3 @@ class PropertyMediaSerializer(serializers.ModelSerializer):
         # representation['file'] = 'https://storage.googleapis.com/stars-website-react-2.appspot.com/' + instance.file.name
         return representation
 
-    # def get_file_url(self, obj):
-    #     return obj.file.url
