@@ -1,27 +1,8 @@
 from rest_framework import generics
 
 from blog.models import Blog
-from blog.serializers.blog_serializer import BlogListSerializer, BlogDetailSerializer, AdminBlogDetailSerializer, \
-    AdminBlogListSerializer
-
-"""
-Guest View
-"""
-
-
-class BlogListAPIView(generics.ListAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogListSerializer
-
-
-class BlogRetrieveAPIView(generics.RetrieveAPIView):
-    queryset = Blog.objects.all()
-    serializer_class = BlogDetailSerializer
-
-
-"""
-Admin View
-"""
+from blog.serializers.blog_serializer import BlogCreateUpdateDestroySerializer, BlogRetrieveSerializer, \
+    BlogListSerializer
 
 
 class BlogListCreateAPIView(generics.ListCreateAPIView):
@@ -29,10 +10,15 @@ class BlogListCreateAPIView(generics.ListCreateAPIView):
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
-            return AdminBlogDetailSerializer
-        return AdminBlogListSerializer
+            return BlogCreateUpdateDestroySerializer
+        return BlogListSerializer
 
 
 class BlogRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
-    serializer_class = AdminBlogDetailSerializer
+    serializer_class = BlogCreateUpdateDestroySerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return BlogRetrieveSerializer
+        return BlogCreateUpdateDestroySerializer

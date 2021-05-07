@@ -111,8 +111,8 @@ OLD_PASSWORD_FIELD_ENABLED = True
 REST_AUTH_SERIALIZERS = {
     'JWT_TOKEN_CLAIMS_SERIALIZER':
         'authentication.serializers.CustomTokenObtainPairSerializer',
-    'USER_DETAILS_SERIALIZER':
-        'authentication.serializers.CustomUserDetailsSerializer',
+    # 'USER_DETAILS_SERIALIZER':
+    #     'authentication.serializers.CustomUserDetailsSerializer',
     'PASSWORD_RESET_SERIALIZER':
         'authentication.serializers.CustomPasswordResetSerializer',
 }
