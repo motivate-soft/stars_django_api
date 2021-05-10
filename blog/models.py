@@ -32,7 +32,7 @@ class Blog(models.Model):
         db_table = 'table_blog'
         verbose_name_plural = "blogs"
         indexes = [models.Index(fields=['slug'])]
-        ordering = ['-published_on']
+        ordering = ['-published_date']
 
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -41,7 +41,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs', related_query_name='blog')
     slug = models.SlugField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
-    published_on = models.DateTimeField(null=True, blank=True)
+    published_date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -64,10 +64,10 @@ def generate_unique_slug_for_posts(sender, instance, created, *args, **kwargs):
 
 
 @receiver(pre_save, sender=Blog)
-def update_published_on(sender, instance, **kwargs):
+def update_published_date(sender, instance, **kwargs):
     """Update The Date Of 'Published On' When The Post Gets Published"""
 
     if instance.id:
-        old_value = Blog.objects.get(pk=instance.id).published_on
+        old_value = Blog.objects.get(pk=instance.id).published_date
         if not old_value:
-            instance.published_on = timezone.now()
+            instance.published_date = timezone.now()
