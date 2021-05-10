@@ -1,7 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from accommodation.models import Category
-from media.models import Media
 
 
 class Property(models.Model):

@@ -111,8 +111,8 @@ OLD_PASSWORD_FIELD_ENABLED = True
 REST_AUTH_SERIALIZERS = {
     'JWT_TOKEN_CLAIMS_SERIALIZER':
         'authentication.serializers.CustomTokenObtainPairSerializer',
-    'USER_DETAILS_SERIALIZER':
-        'authentication.serializers.CustomUserDetailsSerializer',
+    # 'USER_DETAILS_SERIALIZER':
+    #     'authentication.serializers.CustomUserDetailsSerializer',
     'PASSWORD_RESET_SERIALIZER':
         'authentication.serializers.CustomPasswordResetSerializer',
 }
@@ -156,22 +156,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-"""
-django-storages s3 setup
-"""
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# The AWS region to connect to.
-AWS_REGION = "us-east-2"
-# The AWS access key to use.
-AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
-# The AWS secret access key to use.
-AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = 's3.us-east-2.amazonaws.com/starsofboston.com'
-
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL = None
 
 STATIC_ROOT = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')

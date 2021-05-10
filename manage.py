@@ -4,19 +4,19 @@ import os
 import sys
 import environ
 
-
 env = environ.Env()
 env.read_env()
 
 
 def main():
-    debug_mode = env('DEBUG', cast=bool)
-    if debug_mode:
-        print("...development...")
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_api.settings.development')
-    else:
+    is_production = env('PRODUCTION', cast=bool)
+    print("is_production", is_production)
+    if is_production:
         print("...production...")
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_api.settings.production')
+    else:
+        print("...development...")
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_api.settings.development')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

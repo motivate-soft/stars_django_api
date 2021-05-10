@@ -3,7 +3,6 @@ import urllib.parse as urlparse
 
 import xml.etree.ElementTree as et
 
-from django.http import HttpResponse
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, ListCreateAPIView
 
 from accommodation.models import Category
@@ -11,7 +10,6 @@ from accommodation.models.property import Property
 from accommodation.serializers.property_serializer import PropertyDetailSerializer, PropertyListingItemSerializer, \
     PropertyMapItemSerializer, AdminPropertyListItemSerializer, AdminPropertyDetailSerializer
 from accommodation.utils import get_multi_property_availability
-from media.models import Media
 
 """
 Guest View
@@ -92,27 +90,3 @@ class AdminPropertyRetrieveUpdateDestroyBySlugAPIView(RetrieveUpdateDestroyAPIVi
     queryset = Property.objects.all()
     serializer_class = AdminPropertyDetailSerializer
     lookup_field = 'slug'
-
-
-def update_images(request):
-    for property in Property.objects.all():
-        gallery_imgs = property.gallery_imgs.order_by('order')
-        print("___gallery_imgs__", gallery_imgs)
-        array = []
-        order = 1
-        for image in gallery_imgs:
-            print("__order___", image.id, image.order)
-            array.append(image.id)
-            image.order = order
-            image.save()
-            order = order + 1
-
-        featured_image = property.featured_img
-        if not featured_image in gallery_imgs:
-            print("featured_image", featured_image.id)
-            featured_image.order = 0
-            featured_image.save()
-            array.append(featured_image.id)
-        property.gallery_imgs.set(Media.objects.filter(id__in=array))
-
-    return HttpResponse("updated")

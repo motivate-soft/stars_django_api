@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/accommodation/', include('accommodation.url')),
     path('api/media/', include('media.urls')),
     path('api/content/', include('content.urls')),
-    path('api/blog/', include('blog.urls')),
+    path('api/blog/', include('blog.url')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='api_docs')
 ]
 

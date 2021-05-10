@@ -1,13 +1,15 @@
 import os
 
-from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from django.utils.translation import ugettext_lazy as _
-
 from rest_framework import serializers
-
 from media.models import Media
+# import environ
+#
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#
+# env = environ.Env()
+# env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -59,6 +61,22 @@ class MediaSerializer(serializers.ModelSerializer):
     #     return obj.file.url
 
 
+class MediaItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = (
+            'id', 'title', 'file', 'order', 'created_date', 'updated_date'
+        )
+        extra_kwargs = {'file': {'required': False, 'validators': []}}
+
+    def to_representation(self, instance):
+        # is_production = env('PRODUCTION', cast=bool)
+        # if not is_production:
+        #     return self.context['request'].build_absolute_uri(instance.file.url)
+
+        return self.context['request'].build_absolute_uri(instance.file.url)
+
+
 class PropertyMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
@@ -72,6 +90,3 @@ class PropertyMediaSerializer(serializers.ModelSerializer):
         # representation['src'] = self.context['request'].build_absolute_uri('/' + instance.file.url)
         # representation['file'] = 'https://storage.googleapis.com/stars-website-react-2.appspot.com/' + instance.file.name
         return representation
-
-    # def get_file_url(self, obj):
-    #     return obj.file.url
