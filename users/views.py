@@ -103,7 +103,7 @@ def send_contact_email(request):
 def send_apply_email(request):
     data = json.loads(request.body)
     subject = 'Application email'
-    body = loader.render_to_string('email/application_email.html', data)
+    body = loader.render_to_string('email/application_email.txt', data)
     email_message = EmailMultiAlternatives(subject, body, data['email'], [DEFAULT_EMAIL_To])
     email_message.send()
 

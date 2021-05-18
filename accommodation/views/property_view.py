@@ -22,7 +22,7 @@ class PropertyListAPIView(ListAPIView):
     permission_classes = []
 
     def get_queryset(self):
-        category_name = self.request.query_params.get('category', None)
+        category_slug = self.request.query_params.get('category', None)
         checkin_date = self.request.query_params.get('checkin_date', None)
         checkout_date = self.request.query_params.get('checkout_date', None)
         adults = self.request.query_params.get('adults', None)
@@ -43,11 +43,11 @@ class PropertyListAPIView(ListAPIView):
                 property_ids.append(int(parse_qs(parsed_url.query)['property'][0]))
             queryset = queryset.filter(bookerville_id__in=property_ids)
 
-        if category_name is not None:
-            category = Category.objects.get(name=category_name)
+        if category_slug is not None:
+            category = Category.objects.get(slug=category_slug)
 
             if category is not None:
-                queryset = queryset.filter(category=Category.objects.get(name=category_name).id)
+                queryset = queryset.filter(category=category.id)
 
         return queryset
 
