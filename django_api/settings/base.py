@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django_seed',
     'storages',
     'drf_yasg',
+    'django_filters',
 
     # Local
     'authentication.apps.AuthenticationConfig',
@@ -155,7 +156,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 STATIC_ROOT = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')

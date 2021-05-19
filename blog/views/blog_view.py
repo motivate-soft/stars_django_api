@@ -1,3 +1,4 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
@@ -22,6 +23,8 @@ class BlogListingAPIView(generics.ListAPIView):
     serializer_class = BlogListingSerializer
     permission_classes = []
     pagination_class = BlogPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['tags']
 
     def get_queryset(self):
         tags = self.request.query_params.get('tags', None)

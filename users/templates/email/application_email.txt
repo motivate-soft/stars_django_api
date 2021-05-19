@@ -8,7 +8,7 @@ Pets - if yes, please list type and breed: {{ pets }}
 Contact in case of an emergency: {{ contact }}
 Employer? (if student, please list name of university):
 {{ employer }}
-Occupation: {{ occupation}}
+Occupation: {{ occupancy.0}}-{{ occupancy.1}}
 Salary: {{ salary }}
 Reason for your visit: {{ reason }}
 Anything else we should know of: {{ extradetail }}
@@ -19,6 +19,6 @@ Complete Address: {{ lordaddress }}
 Phone Number: {{ lordphonenumber }}
 Former Landlord
 name: {{ formerlordname }}
-Occupancy: {{ formerlordoccupancy }}
+Occupancy: {{ formerlordoccupancy.0 }}-{{ formerlordoccupancy.1 }}
 Complete Address: {{ formerlordaddress }}
 Phone Number: {{ formerlordphonenumber }}

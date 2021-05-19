@@ -8,9 +8,6 @@
 __pycache__/
 venv
 
-# Django migrations:
-migrations/
-
 # node modules
 node_modules/
 
