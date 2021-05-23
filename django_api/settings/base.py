@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'accommodation.apps.AccommodationConfig',
     'media.apps.MediaManagerConfig',
     'content.apps.ContentConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'django_meta.apps.DjangoMetaConfig',
 ]
 
 SITE_ID = 1
@@ -81,6 +82,8 @@ WSGI_APPLICATION = 'django_api.wsgi.application'
 
 pymysql.version_info = (1, 4, 6, 'final', 0)  # change mysqlclient version
 pymysql.install_as_MySQLdb()
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 REST_FRAMEWORK = {
     # authentication
