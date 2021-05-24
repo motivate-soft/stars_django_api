@@ -8,11 +8,9 @@ class ModelMeta(models.Model):
     slug = models.CharField(unique=True, max_length=200)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=1000)
-
-    meta_tags = models.JSONField()
-
-    og_tags = models.JSONField()
-    twitter_tags = models.JSONField()
+    meta_tags = models.JSONField(null=True, blank=True)
+    og_tags = models.JSONField(null=True, blank=True)
+    twitter_tags = models.JSONField(null=True, blank=True)
 
     # og_title = models.CharField(max_length=200)
     # og_description = models.TextField(max_length=1000)
