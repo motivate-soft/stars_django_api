@@ -1,9 +1,12 @@
 import os
 
+from django.core.files.images import get_image_dimensions
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from rest_framework import serializers
 from media.models import Media
+
+
 # import environ
 #
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -61,6 +64,11 @@ class MediaSerializer(serializers.ModelSerializer):
     #     return obj.file.url
 
 
+"""
+Return media file path
+"""
+
+
 class MediaItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
@@ -75,6 +83,27 @@ class MediaItemSerializer(serializers.ModelSerializer):
         #     return self.context['request'].build_absolute_uri(instance.file.url)
 
         return self.context['request'].build_absolute_uri(instance.file.url)
+
+
+"""
+Return image width, height
+"""
+
+
+class MediaItemDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = (
+            'id', 'title', 'file', 'order', 'created_date', 'updated_date'
+        )
+
+    def to_representation(self, instance):
+        representation = super(MediaItemDetailSerializer, self).to_representation(instance)
+        width, height = get_image_dimensions(instance.file.file)
+        representation['width'] = width
+        representation['height'] = height
+
+        return representation
 
 
 class PropertyMediaSerializer(serializers.ModelSerializer):

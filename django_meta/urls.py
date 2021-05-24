@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from django_meta.views import MetaViewSet
 
-router = DefaultRouter()
+router = DefaultRouter(trailing_slash=False)
 router.register(r'', MetaViewSet)
 user_detail = MetaViewSet.as_view({
     'get': 'retrieve'

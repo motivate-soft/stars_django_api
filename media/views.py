@@ -3,14 +3,15 @@ import base64
 from django.core.files.base import ContentFile
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, \
+    RetrieveAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from accommodation.models import Property
 from media.models import Media
-from media.serializer import MediaSerializer
+from media.serializer import MediaSerializer, MediaItemDetailSerializer
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                     MEDIA LIST VIEW
@@ -28,42 +29,6 @@ class PaginatedMediaListView(ListAPIView):
     # queryset = Media.objects.exclude(id__in=[]).order_by('-created_date')
     serializer_class = MediaSerializer
     pagination_class = MediaPagination
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-                    MEDIA BULK UPDATE VIEW
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-class MediaMultipleUpdate(APIView):
-    @staticmethod
-    def get_object(obj_id):
-        try:
-            return Media.objects.get(id=obj_id)
-        except (Media.DoesNotExist, ValidationError):
-            raise status.HTTP_400_BAD_REQUEST
-
-    @staticmethod
-    def validate_ids(id_list):
-        for id in id_list:
-            try:
-                Media.objects.get(id=id)
-            except (Media.DoesNotExist, ValidationError):
-                raise status.HTTP_400_BAD_REQUEST
-        return True
-
-    def put(self, request, *args, **kwargs):
-        items = request.data
-        id_list = [data['id'] for data in items]
-        self.validate_ids(id_list=id_list)
-        instances = []
-        for key, value in enumerate(d['id'] for d in items):
-            obj = self.get_object(obj_id=value)
-            obj.order = key + 1
-            obj.save()
-            instances.append(obj)
-        serializer = MediaSerializer(instances, many=True)
-        return Response(serializer.data)
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -109,3 +74,13 @@ class MediaListCreateView(ListCreateAPIView):
 class MediaRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Media.objects.all()
     serializer_class = MediaSerializer
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+                     MEDIA Detail 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+class MediaRetrieveAPIView(RetrieveAPIView):
+    queryset = Media.objects.all()
+    serializer_class = MediaItemDetailSerializer
