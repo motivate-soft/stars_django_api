@@ -1,3 +1,4 @@
+import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
@@ -11,6 +12,51 @@ Guest
 """
 
 
+class M2MFilter(django_filters.Filter):
+
+    def filter(self, qs, value):
+        if not value:
+            return qs
+
+        values = value.split(',')
+
+        """
+        Chain queryset | AND
+        """
+        # for v in values:
+        #     qs = qs.filter(labels=v)
+        # return qs
+
+        """
+        Union queryset | OR
+        """
+        qs_array = []
+        for v in values:
+            qs_array.append(qs.filter(tags=v))
+
+        index = 1
+        result_qs = qs_array[0]
+
+        while index < len(qs_array):
+            result_qs = result_qs.union(qs_array[index])
+            index = index + 1
+
+        return result_qs
+
+
+class BlogFilter(django_filters.FilterSet):
+    tags = M2MFilter(field_name='tags')
+
+    # tags = django_filters.filters.BaseInFilter(
+    #     field_name='tags',
+    #     lookup_expr='in',
+    # )
+
+    class Meta:
+        model = Blog
+        fields = ('tags',)
+
+
 class BlogPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -19,24 +65,21 @@ class BlogPagination(PageNumberPagination):
 
 class BlogListingAPIView(generics.ListAPIView):
     queryset = Blog.objects.order_by('-created_date')
-    # queryset = Blog.objects.all()
     serializer_class = BlogListingSerializer
     permission_classes = []
     pagination_class = BlogPagination
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['tags']
+    filterset_class = BlogFilter
 
-    def get_queryset(self):
-        tags = self.request.query_params.get('tags', None)
-        if tags:
-            array = []
-            for tag_id in tags.split(","):
-                array.append(int(tag_id))
-                print("___", array)
-            queryset = Blog.objects.filter(tags__in=array).order_by('-published_date')
-        else:
-            queryset = Blog.objects.order_by('-published_date')
-        return queryset
+    # def get_queryset(self):
+    #     queryset = Blog.objects.order_by('-published_date')
+    #     # tags = self.request.query_params.get('tags', None)
+    #     # if tags:
+    #     #     array = tags.split(",")
+    #     #     queryset = Blog.objects.filter(tags__in=array).order_by('-published_date')
+    #     # else:
+    #     #     queryset = Blog.objects.order_by('-published_date')
+    #     return queryset
 
 
 class BlogDetailAPIView(generics.RetrieveAPIView):

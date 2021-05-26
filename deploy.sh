@@ -1,7 +1,7 @@
 #!/bin/sh
 sudo git pull origin master
 source venv/bin/activate
-sudo pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 sudo systemctl restart gunicorn.socket
 sudo systemctl restart gunicorn
 sudo systemctl restart nginx
