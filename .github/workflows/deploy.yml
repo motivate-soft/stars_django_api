@@ -24,8 +24,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          repo-token: ${{ secrets.REPO_TOKEN }}
+          port: 22
+          token: ${{ secrets.GitHub_PAT }}
           script: |
             cd /var/starsofboston/stars_django_api
             sudo git pull origin master
