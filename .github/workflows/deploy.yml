@@ -10,7 +10,7 @@ on:
       - master
 
   repository_dispatch:
-    types: [ production-deploy ]
+    types: [production-deploy]
 
 jobs:
   deploy:
@@ -31,5 +31,7 @@ jobs:
             sudo git pull origin master
             source venv/bin/activate
             pip3 install -r requirements.txt
+            python3 manage.py makemigrations
+            python3 manage.py migrate
             sudo systemctl restart gunicorn.socket
             sudo systemctl restart gunicorn
