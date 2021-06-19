@@ -35,3 +35,6 @@ jobs:
             python3 manage.py migrate
             sudo systemctl restart gunicorn.socket
             sudo systemctl restart gunicorn
+            sudo systemctl restart nginx
+
+
