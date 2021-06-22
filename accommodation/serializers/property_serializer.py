@@ -210,13 +210,12 @@ class AdminPropertyDetailSerializer(serializers.ModelSerializer):
         # Update property's gallery images
 
         if gallery_imgs:
-            order = 1
+            array = []
+            for image_obj in gallery_imgs:
+                array.append(image_obj['id'])
+                Media.objects.filter(pk=image_obj['id']).update(order=image_obj['order'])
 
-            for image_id in gallery_imgs:
-                Media.objects.filter(pk=image_id).update(order=order)
-                order += 1
-
-            images = Media.objects.filter(id__in=gallery_imgs)
+            images = Media.objects.filter(id__in=array)
             instance.gallery_imgs.set(images)
 
         if similar_properties:
