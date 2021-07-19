@@ -2,7 +2,7 @@
 <h1 align="center">starsofboston api👋</h1>
 
 
-> vacation rental booking and management system
+> vacation rental booking and management system api
 
 ### 🏠 [starsofboston.com](https://www.starsofboston.com)
 
