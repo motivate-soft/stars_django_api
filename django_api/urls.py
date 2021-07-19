@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/content/', include('content.urls')),
     path('api/blog/', include('blog.url')),
     path('api/meta/', include('django_meta.urls')),
+    path('api/company/', include('company.urls')),
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='api_docs')
 ]
 

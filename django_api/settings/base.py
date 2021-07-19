@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'content.apps.ContentConfig',
     'blog.apps.BlogConfig',
     'django_meta.apps.DjangoMetaConfig',
+    'company.apps.CompanyConfig'
 ]
 
 SITE_ID = 1

@@ -64,6 +64,21 @@ class MediaSerializer(serializers.ModelSerializer):
     #     return obj.file.url
 
 
+class MediaListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = (
+            'id', 'title', 'file',
+        )
+        extra_kwargs = {'file': {'required': False, 'validators': []}}
+
+    def to_representation(self, instance):
+        representation = super(MediaListingSerializer, self).to_representation(instance)
+        # representation['src'] = self.context['request'].build_absolute_uri('/' + instance.file.url)
+        # representation['file'] = 'https://storage.googleapis.com/stars-website-react-2.appspot.com/' + instance.file.name
+        return representation
+
+
 """
 Return media file path
 """
