@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from company.models import Company
 from media.models import Media
-from media.serializer import MediaSerializer, MediaListingSerializer
+from media.serializer import MediaSerializer, MediaItemSerializer
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -36,7 +36,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
 
 class CompanyListingSerializer(serializers.ModelSerializer):
-    image = MediaListingSerializer(read_only=True, required=False)
+    image = MediaItemSerializer(read_only=True, required=False)
 
     class Meta:
         model = Company

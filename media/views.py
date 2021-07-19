@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 
 from accommodation.models import Property
 from media.models import Media
-from media.serializer import MediaSerializer, MediaItemDetailSerializer
+from media.serializer import MediaSerializer
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
                     MEDIA LIST VIEW
@@ -74,13 +74,3 @@ class MediaListCreateView(ListCreateAPIView):
 class MediaRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Media.objects.all()
     serializer_class = MediaSerializer
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-                     MEDIA Detail 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-class MediaRetrieveAPIView(RetrieveAPIView):
-    queryset = Media.objects.all()
-    serializer_class = MediaItemDetailSerializer

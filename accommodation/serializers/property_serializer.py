@@ -9,7 +9,7 @@ from accommodation.serializers.price_serializer import PriceItemSerializer
 from accommodation.serializers.room_serializer import RoomSerializer, RoomDetailSerializer
 from accommodation.utils import get_property_availability
 from media.models import Media
-from media.serializer import MediaSerializer, PropertyMediaSerializer
+from media.serializer import MediaSerializer
 
 """
 Guest View Serializer
@@ -17,7 +17,7 @@ Guest View Serializer
 
 
 class PropertyListingItemSerializer(serializers.ModelSerializer):
-    featured_img = PropertyMediaSerializer(read_only=True)
+    featured_img = MediaSerializer(read_only=True)
     category = serializers.StringRelatedField()
 
     class Meta:
@@ -44,8 +44,8 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
     # pricing_items = PriceItemSerializer(many=True, read_only=True)
     pricing_items = serializers.SerializerMethodField('get_pricing_items')
     amenities = AmenityListingSerializer(many=True, required=False, read_only=True)
-    featured_img = PropertyMediaSerializer(required=False, read_only=True)
-    gallery_imgs = PropertyMediaSerializer(many=True, required=False, read_only=True)
+    featured_img = MediaSerializer(required=False, read_only=True)
+    gallery_imgs = MediaSerializer(many=True, required=False, read_only=True)
     similar_properties = PropertyListingItemSerializer(many=True, required=False, read_only=True)
     # gallery_imgs = serializers.SerializerMethodField('get_gallery_images')
     # similar_properties = serializers.SerializerMethodField('get_similar_properties')
@@ -96,7 +96,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_gallery_images(obj):
-        return PropertyMediaSerializer(obj.gallery_imgs.all().order_by('order'), many=True).data
+        return MediaSerializer(obj.gallery_imgs.all().order_by('order'), many=True).data
 
     @staticmethod
     def get_pricing_items(obj):

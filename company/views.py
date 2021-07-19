@@ -12,7 +12,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     serializer_class = CompanySerializer
 
     def get_serializer_class(self):
-        if self.action == 'listing':
+        if self.action == 'listing' or self.action == 'list':
             return CompanyListingSerializer
         return CompanySerializer
 

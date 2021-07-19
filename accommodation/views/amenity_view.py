@@ -12,7 +12,7 @@ class AmenityViewSet(viewsets.ModelViewSet):
     serializer_class = AmenitySerializer
 
     def get_serializer_class(self):
-        if self.action == 'listing':
+        if self.action == 'listing' or self.action == 'list':
             return AmenityListingSerializer
         return AmenitySerializer
 

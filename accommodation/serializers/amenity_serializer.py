@@ -2,11 +2,11 @@ from accommodation.models.amenity import Amenity
 from rest_framework import serializers
 
 from media.models import Media
-from media.serializer import PropertyMediaSerializer
+from media.serializer import MediaSerializer, MediaItemSerializer
 
 
 class AmenitySerializer(serializers.ModelSerializer):
-    image = PropertyMediaSerializer(read_only=True, required=False)
+    image = MediaSerializer(read_only=True, required=False)
 
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
@@ -44,15 +44,10 @@ class AmenitySerializer(serializers.ModelSerializer):
 
 
 class AmenityListingSerializer(serializers.ModelSerializer):
-    # image = serializers.SerializerMethodField('get_image_url')
-    image = PropertyMediaSerializer(read_only=True, required=False)
+    image = MediaItemSerializer(read_only=True, required=False)
 
     class Meta:
         model = Amenity
         fields = (
-            'id', 'name', 'slug', 'image', 'created_date', 'updated_date'
+            '__all__'
         )
-
-    # @staticmethod
-    # def get_image_url(obj):
-    #     return obj.image.file.url
