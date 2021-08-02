@@ -29,3 +29,6 @@ coverage
 /tmp
 
 /static/media/uploads/
+
+# environment
+.env
