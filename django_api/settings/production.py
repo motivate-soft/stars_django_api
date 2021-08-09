@@ -12,12 +12,12 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://starsofboston.com",
-    "http://www.starsofboston.com",
-    "http://starsofboston.org",
-    "http://www.starsofboston.org",
-    "http://starsofboston.net",
-    "http://www.starsofboston.net",
+    "https://starsofboston.com",
+    "https://www.starsofboston.com",
+    "https://starsofboston.org",
+    "https://www.starsofboston.org",
+    "https://starsofboston.net",
+    "https://www.starsofboston.net",
 ]
 
 DATABASES = {
