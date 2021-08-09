@@ -1,38 +1,24 @@
 from .base import *
 
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = False
 
-# ALLOWED_HOSTS = [
-#     ".localhost",
-#     "127.0.0.1",
-#     "starsofboston.com",
-#     "www.starsofboston.com",
-#     "starsofboston.org",
-#     "www.starsofboston.org",
-#     "starsofboston.net",
-#     "www.starsofboston.net",
-# ]
+ALLOWED_HOSTS = [
+    "starsofboston.com",
+    "www.starsofboston.com",
+    "starsofboston.org",
+    "www.starsofboston.org",
+    "starsofboston.net",
+    "www.starsofboston.net",
+]
 
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = [
-#     "http://localhost:3000",
-#     "https://localhost:3000",
-#
-#     "http://starsofboston.com",
-#     "http://www.starsofboston.com",
-#     "http://starsofboston.org",
-#     "http://www.starsofboston.org",
-#     "http://starsofboston.net",
-#     "http://www.starsofboston.net",
-#
-#     "https://starsofboston.com",
-#     "https://www.starsofboston.com",
-#     "https://starsofboston.org",
-#     "https://www.starsofboston.org",
-#     "https://starsofboston.net",
-#     "https://www.starsofboston.net"
-# ]
+CORS_ORIGIN_WHITELIST = [
+    "http://starsofboston.com",
+    "http://www.starsofboston.com",
+    "http://starsofboston.org",
+    "http://www.starsofboston.org",
+    "http://starsofboston.net",
+    "http://www.starsofboston.net",
+]
 
 DATABASES = {
     'default': {
