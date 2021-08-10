@@ -12,6 +12,7 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
+    "18.117.1.73",
     "https://starsofboston.com",
     "https://www.starsofboston.com",
     "https://starsofboston.org",
