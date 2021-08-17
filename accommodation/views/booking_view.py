@@ -25,7 +25,6 @@ class AddPaymentAPIView(CreateAPIView):
             else:
                 return JsonResponse(data={'error': res['error']}, safe=True, status=HTTP_400_BAD_REQUEST)
         else:
-            print('valid_ser.errors', valid_ser.errors)
             return HttpResponse(json.dumps(valid_ser.errors), content_type="application/json", status=HTTP_400_BAD_REQUEST)
 
     @staticmethod
@@ -88,7 +87,7 @@ class AddPaymentAPIView(CreateAPIView):
         get_payment(book_id=bkv_booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
                     operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
 
-        print('=========Add Booking API Response======\n', result)
+        print('=========Add Payment API Response======\n', result)
 
         return {
             'status': 'ok',

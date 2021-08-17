@@ -17,6 +17,5 @@ class TestPropertys(TestCase):
                 {'name': 'Test item', 'bed_type': 'M'},
             ]
         }, format='json')
-        print(response)
 
         self.assertEqual(response.status_code, 200, response.content)

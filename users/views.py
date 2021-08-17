@@ -61,7 +61,6 @@ class UserRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
                 'You are not allowed to perform this action',
                 'authorization_failed',
             )
-        print(request)
         # status_dic = dict(STATUS_CHOICES)
         # request.data['status'] = status_dic[request.data['status']]
         return self.update(request, *args, **kwargs)

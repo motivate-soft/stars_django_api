@@ -85,8 +85,6 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
         arrival_dates = [e.text for e in root.findall('BookedStays/BookedStay//ArrivalDate')]
         departure_dates = [e.text for e in root.findall('BookedStays/BookedStay//DepartureDate')]
         for key, arrival_date in enumerate(arrival_dates):
-            print('arrival_dates', datetime.datetime.strptime(arrival_date, "%Y-%m-%d"), key, arrival_date,
-                  departure_dates[key])
             checked_dates.append({
                 'arrival_date': arrival_date,
                 'departure_date': departure_dates[key],
@@ -201,7 +199,6 @@ class AdminPropertyDetailSerializer(serializers.ModelSerializer):
         rooms_data = request.data.get('property_rooms', [])
         similar_properties = request.data.get('similar_properties', [])
 
-        print("++++update extra fields++++", amenities, featured_img, gallery_imgs, similar_properties)
         # Update property's featured image
         if featured_img is not None:
             image = Media.objects.filter(pk=featured_img)[:1].get()

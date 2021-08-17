@@ -4,14 +4,12 @@ from accommodation.models import Price, Property
 
 
 def decrement_date(date, days=1):
-    print('date', date)
     date = datetime.datetime.strptime(str(date), "%Y-%m-%d")
     new_date = date - datetime.timedelta(days=days)
     return new_date.strftime("%Y-%m-%d")
 
 
 def increment_date(date, days=1):
-    print('date', date)
     date = datetime.datetime.strptime(str(date), "%Y-%m-%d")
     new_date = date + datetime.timedelta(days=days)
     return new_date.strftime("%Y-%m-%d")
@@ -28,7 +26,6 @@ class PriceItemSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         qstart_date = validated_data['start_date']
         qend_date = validated_data['end_date']
-        print('qstart_date, qend_date', qstart_date, qend_date, decrement_date(qstart_date))
 
         # update item with date range involving new item's date range
         if len(Price.objects.filter(start_date__lt=qstart_date, end_date__gt=qend_date)) > 0:
