@@ -1,10 +1,12 @@
 import json
+from smtplib import SMTPException
 
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from rest_framework import status, exceptions
+from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -92,9 +94,13 @@ def send_contact_email(request):
     last_name = data["lastName"]
     email = data["email"]
     message = data["message"]
-    send_mail("%s %s" % (first_name, last_name), message, email, [DEFAULT_EMAIL_To])
-
-    return JsonResponse({'status': 'ok'})
+    try:
+        send_mail("%s %s" % (first_name, last_name), message, email, [DEFAULT_EMAIL_To])
+        return JsonResponse({'status': 'ok'})
+    except SMTPException as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 @csrf_exempt
@@ -104,9 +110,13 @@ def send_apply_email(request):
     subject = 'Application email'
     body = loader.render_to_string('email/application_email.txt', data)
     email_message = EmailMultiAlternatives(subject, body, data['email'], [DEFAULT_EMAIL_To])
-    email_message.send()
-
-    return JsonResponse({'status': 'ok'})
+    try:
+        email_message.send()
+        return JsonResponse({'status': 'ok'})
+    except SMTPException as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 #
 # def send_mail(self, subject_template_name, email_template_name,
