@@ -32,6 +32,7 @@ coverage
 
 # environment
 .env
+.env.production
 
 # log
 log

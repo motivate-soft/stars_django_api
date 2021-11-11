@@ -14,12 +14,12 @@ UserModel = get_user_model()
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
-        if self.user.status is 'B':
+        if self.user.status == 'B':
             raise exceptions.AuthenticationFailed(
                 'You account is blocked',
                 'account_blocked',
             )
-        if self.user.status is 'P':
+        if self.user.status == 'P':
             raise exceptions.AuthenticationFailed(
                 'You account is pending',
                 'account_pending',
@@ -70,10 +70,16 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
 
 
 class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
     def get_email_options(self):
         return {
-            'from_email': 'admin@admin.com',
-            'email_template_name': 'email/password_reset_email.txt'
+            'email_template_name': 'email/password_reset_email.txt',
+            # 'html_email_template_name': 'email/password_reset_email.html',
         }
     # email = serializers.EmailField()
     # password_reset_form_class = PasswordResetForm
