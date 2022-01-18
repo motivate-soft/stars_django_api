@@ -1,11 +1,12 @@
-import datetime
-
+from datetime import datetime, timedelta
+from django.utils.timezone import now
 from rest_framework import serializers
 import xml.etree.ElementTree as et
 
 from accommodation.models import Property, Room, Amenity, Price
+from accommodation.models.price import MonthlyPrice
 from accommodation.serializers.amenity_serializer import AmenitySerializer, AmenityListingSerializer
-from accommodation.serializers.price_serializer import PriceItemSerializer
+from accommodation.serializers.price_serializer import PriceItemSerializer, MonthlyPriceItemSerializer
 from accommodation.serializers.room_serializer import RoomSerializer, RoomDetailSerializer
 from accommodation.utils import get_property_availability
 from media.models import Media
@@ -19,15 +20,25 @@ Guest View Serializer
 class PropertyListingItemSerializer(serializers.ModelSerializer):
     featured_img = MediaSerializer(read_only=True)
     category = serializers.StringRelatedField()
+    monthly_price = serializers.SerializerMethodField('get_monthly_price')
 
     class Meta:
         model = Property
         fields = (
-            'id', 'name', 'category', 'slug', 'price', 'min_price', 'min_month_price',
+            'id', 'name', 'category', 'slug', 'price', 'min_price', 'min_month_price', 'monthly_price',
             'bedroom_count', 'bathroom_count', 'shared_bathroom', 'sleeps', 'min_sleeps',
             'cleaning_fee', 'transactionfee_rate', 'tax_rate', 'refundable_amount',
             'tour360', 'furnished', 'rental_parking', 'pets_considered', 'featured_img'
         )
+
+    @staticmethod
+    def get_monthly_price(obj):
+        month_start_date = datetime.today().replace(day=1).strftime("%Y-%m-%d")
+        pricing = MonthlyPrice.objects.filter(property=obj.id, date=month_start_date).first()
+        if pricing:
+            return pricing.price
+        else:
+            return None
 
 
 class PropertyMapItemSerializer(serializers.ModelSerializer):
@@ -43,6 +54,8 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
     property_rooms = RoomDetailSerializer(many=True, read_only=True)
     # pricing_items = PriceItemSerializer(many=True, read_only=True)
     pricing_items = serializers.SerializerMethodField('get_pricing_items')
+    # monthlypricing_items = MonthlyPriceItemSerializer(many=True, read_only=True)
+    monthly_price = serializers.SerializerMethodField('get_monthly_price')
     amenities = AmenityListingSerializer(many=True, required=False, read_only=True)
     featured_img = MediaSerializer(required=False, read_only=True)
     gallery_imgs = MediaSerializer(many=True, required=False, read_only=True)
@@ -60,7 +73,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
             'description', 'neighbourhood', 'transit', 'lat', 'lng',
             'bedroom_count', 'bathroom_count', 'shared_bathroom',
             'sleeps', 'min_sleeps',
-            'price', 'min_price', 'min_month_price', 'pricing_items', 'cleaning_fee',
+            'price', 'min_price', 'min_month_price', 'pricing_items', 'monthly_price', 'cleaning_fee',
             'transactionfee_rate',
             'tax_rate',
             'refundable_amount',
@@ -98,8 +111,17 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_pricing_items(obj):
-        return PriceItemSerializer(Price.objects.filter(property=obj.id, end_date__gte=datetime.datetime.now()),
+        return PriceItemSerializer(Price.objects.filter(property=obj.id, end_date__gte=datetime.now()),
                                    many=True, read_only=True).data
+
+    @staticmethod
+    def get_monthly_price(obj):
+        month_start_date = datetime.today().replace(day=1).strftime("%Y-%m-%d")
+        pricing = MonthlyPrice.objects.filter(property=obj.id, date=month_start_date).first()
+        if pricing:
+            return pricing.price
+        else:
+            return None
 
 
 """
