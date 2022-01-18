@@ -9,6 +9,7 @@ class Price(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="pricing_items")
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
+
     # end_date = models.DateField(blank=True, null=True, format="%Y-%m-%d %H:%M:%S", input_formats=['%Y-%m-%dT%H:%M:%S.%fZ'])
 
     class Meta:
@@ -18,3 +19,17 @@ class Price(models.Model):
 
     def __str__(self):
         return f'{self.start_date} ~ {self.end_date}: {self.price}'
+
+
+class MonthlyPrice(models.Model):
+    price = models.IntegerField(_("price for specific month"), null=True)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="monthlypricing_items")
+    date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'table_monthlyprice'
+        verbose_name = _("monthlyprice")
+        verbose_name_plural = _("monthlyprices")
+
+    def __str__(self):
+        return f'{self.date}: {self.price}'
