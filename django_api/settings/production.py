@@ -87,7 +87,7 @@ EMAIL_USE_TLS = True
 #     },
 #     'handlers': {
 #         'file': {
-#             'level': 'DEBUG',
+#             'level': 'INFO',
 #             'class': 'logging.handlers.TimedRotatingFileHandler',
 #             'filename': 'log/django.log',
 #             'when': 'midnight',  # this specifies the interval
