@@ -1,8 +1,10 @@
+import logging
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 from bs4 import BeautifulSoup
-
 from django_api.settings.base import BOOKERVILLE_API_KEY
+
+logger = logging.getLogger('django')
 
 
 class Property:

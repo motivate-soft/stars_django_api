@@ -1,5 +1,5 @@
+import logging
 from datetime import datetime, timedelta
-from django.utils.timezone import now
 from rest_framework import serializers
 import xml.etree.ElementTree as et
 
@@ -11,6 +11,8 @@ from accommodation.serializers.room_serializer import RoomSerializer, RoomDetail
 from accommodation.utils import get_property_availability
 from media.models import Media
 from media.serializer import MediaSerializer
+
+logger = logging.getLogger('django')
 
 """
 Guest View Serializer
@@ -94,6 +96,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
         checked_dates = []
         result = get_property_availability(obj.bookerville_id)
         root = et.fromstring(result)
+        logger.info("PropertyDetailSerializer->get_checked_dates %s" % result)
 
         arrival_dates = [e.text for e in root.findall('BookedStays/BookedStay//ArrivalDate')]
         departure_dates = [e.text for e in root.findall('BookedStays/BookedStay//DepartureDate')]
