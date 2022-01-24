@@ -43,16 +43,17 @@ def get_all_properties(auth_key=BOOKERVILLE_API_KEY):
     return ret_val
 
 
-def get_quote(property_num, begin_date, end_date, adults, children=0, guest_email='johnpeurifoy.yahoo.com', guest_address='Address!',
-              city='City', state='State', country='US', first_name='Joe', last_name='Biggs', phone='555', zip='65555', company="Company!",
-              channel="Channel!", operation='QUOTE', auth_key=BOOKERVILLE_API_KEY):
+def get_quote(property_num, begin_date, end_date, adults, children, guest_email='', guest_address='',
+              city='', state='', country='', first_name='', last_name='', phone='', zip='', company='', channel='',
+              operation='QUOTE',
+              auth_key=BOOKERVILLE_API_KEY):
     req_url = "https://www.bookerville.com/API-Booking?s3cr3tK3y=" + auth_key
     xml_string = "<request><operation>" + operation + "</operation><company>" + company + "</company><channel>" + channel + "</channel><bkvPropertyId>" + str(
         property_num) + "</bkvPropertyId><begin_date>" + begin_date + "</begin_date><end_date>" + end_date + "</end_date><adults>" + str(
         adults) + "</adults><children>" + str(
         children) + "</children><guestData><email>" + guest_email + "</email><address>" + guest_address + "</address><city>" + city + "</city><state>" + state + "</state><country>" + country + "</country><first_name>" + first_name + "</first_name><last_name>" + last_name + "</last_name><phone>" + str(
         phone) + "</phone><zip>" + str(zip) + "</zip></guestData></request>"
-    req = Request(url=req_url, data=xml_string, headers={
+    req = Request(url=req_url, data=xml_string.encode('utf-8'), headers={
         'Content-Type': 'application/xml'})
     response = urlopen(req)
     val = response.read()
@@ -61,18 +62,22 @@ def get_quote(property_num, begin_date, end_date, adults, children=0, guest_emai
     return y
 
 
-def get_add(property_num, begin_date, end_date, adults, email, address, state, city, zip, country, first_name, last_name, phone, rent, cleaning_fee=0,
-            total=0, child=0, company="Company", channel="Channel", guest_com="", over_oc=0, dis=0, net=0, state_tax=0, count_tax=0, prepayment=0,
+def get_add(property_num, begin_date, end_date, adults, email, address, state, city, zip, country, first_name,
+            last_name, phone, rent, cleaning_fee=0,
+            total=0, child=0, company="Company", channel="Channel", guest_com="", over_oc=0, dis=0, net=0, state_tax=0,
+            count_tax=0, prepayment=0,
             add_items=None, refund=0, operation="ADD", auth_key=BOOKERVILLE_API_KEY):
     req_url = "https://www.bookerville.com/API-Booking?s3cr3tK3y=" + auth_key
     xml_string = "<request> <operation>" + operation + "</operation> <bkvPropertyId>" + str(
         property_num) + "</bkvPropertyId> <address>" + address + "</address><state>" + state + "</state> <city>" + city + "</city> <company>" + company + "</company> <channel>" + channel + "</channel> <country>" + country + "</country> <email>" + email + "</email> <firstName>" + first_name + "</firstName> <lastName>" + last_name + "</lastName> <phone>" + phone + "</phone> <zip>" + str(
         zip) + "</zip> <beginDate>" + begin_date + "</beginDate> <endDate>" + end_date + "</endDate> <adults>" + str(
-        adults) + "</adults> <children>" + str(child) + "</children> <guestComments>" + guest_com + "</guestComments> <rent>" + str(
+        adults) + "</adults> <children>" + str(
+        child) + "</children> <guestComments>" + guest_com + "</guestComments> <rent>" + str(
         rent) + "</rent><cleaningFee>" + str(cleaning_fee) + "</cleaningFee><overOccupancySurcharge>" + str(
         over_oc) + "</overOccupancySurcharge> <discount>" + str(dis) + "</discount> <netRent>" + str(
         net) + "</netRent> <taxes> <tax> <id>1</id> <label>Tax1</label> <amount>" + str(
-        state_tax) + "</amount> </tax> <tax> <id>2</id> <label>Tax2</label> <amount>" + str(count_tax) + "</amount> </tax> </taxes><total>" + str(
+        state_tax) + "</amount> </tax> <tax> <id>2</id> <label>Tax2</label> <amount>" + str(
+        count_tax) + "</amount> </tax> </taxes><total>" + str(
         total) + "</total><prePayment>" + str(prepayment) + "</prePayment><bookingStatus>Confirmed</bookingStatus>"
     # additionalItems should be a list of tuples
     xml_additions = "<additionalItems>"
@@ -95,7 +100,8 @@ def get_add(property_num, begin_date, end_date, adults, email, address, state, c
 
 
 def get_remove(bk_id, property_id, begin_date, end_date, operation='DELETE', auth_key=BOOKERVILLE_API_KEY):
-    xml_string = "<request><operation>" + operation + "</operation><bkvBookingId>" + str(bk_id) + "</bkvBookingId><bkvPropertyId>" + str(
+    xml_string = "<request><operation>" + operation + "</operation><bkvBookingId>" + str(
+        bk_id) + "</bkvBookingId><bkvPropertyId>" + str(
         property_id) + "</bkvPropertyId><begin_date>" + begin_date + "</begin_date><end_date>" + end_date + "</end_date></request>"
     req_url = "https://www.bookerville.com/API-Booking?s3cr3tK3y=" + auth_key
     req = Request(url=req_url, data=xml_string, headers={
@@ -106,7 +112,8 @@ def get_remove(bk_id, property_id, begin_date, end_date, operation='DELETE', aut
     return y
 
 
-def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_type="Paypal", refund_portion=0, venue='Venue',
+def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_type="Paypal", refund_portion=0,
+                venue='Venue',
                 auth_key=BOOKERVILLE_API_KEY):
     if operation != "Delete":
         pay_id = ""
