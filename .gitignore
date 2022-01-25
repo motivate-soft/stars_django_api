@@ -26,14 +26,8 @@ coverage
 # app credentials
 /secrets.json
 
-/tmp
-
 /static/media/uploads/
 
 # environment
 .env
 .env.production
-
-# log
-log
-*.log
