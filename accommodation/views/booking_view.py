@@ -105,23 +105,6 @@ class AddPaymentAPIView(CreateAPIView):
         }
 
 
-# def get_quote(request):
-#     if request.method == 'POST':
-#         booking_data = json.loads(request.body)
-#         property_num = booking_data["bookerville_id"]
-#         begin_date = datetime.datetime.strftime(booking_data["checkin_date"], "%Y-%M-%D")
-#         end_date = datetime.datetime.strftime(booking_data["checkout_date"], "%Y-%M-%D")
-#         result = get_property_availability(property_num)
-#         root = et.fromstring(result)
-#
-#         arrival_dates = [e.text for e in root.findall('BookedStays/BookedStay//ArrivalDate')]
-#         departure_dates = [e.text for e in root.findall('BookedStays/BookedStay//DepartureDate')]
-#         for key, arrival_date in enumerate(arrival_dates):
-#             if arrival_date <= begin_date <= departure_dates[key] or arrival_date <= end_date <= departure_dates[key]:
-#                 return JsonResponse({'status': 'not available'})
-#
-#         return JsonResponse({'status': 'available'})
-
 class BookingPricingView(APIView):
     permission_classes = []
 
@@ -138,8 +121,8 @@ class BookingPricingView(APIView):
         if not property_instance:
             raise ValidationError({"property": "invalid"})
 
-        logger = logging.getLogger('django')
-        logger.log(0, "BookingPricingView")
+        # logger = logging.getLogger('django')
+        # logger.log(0, "BookingPricingView")
 
         checkin_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
         checkout_date = datetime.strptime(checkout_date, "%Y-%m-%d").date()
