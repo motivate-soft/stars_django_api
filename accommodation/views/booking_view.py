@@ -127,22 +127,31 @@ class BookingPricingView(APIView):
         checkin_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
         checkout_date = datetime.strptime(checkout_date, "%Y-%m-%d").date()
         duration = (checkout_date + relativedelta(days=1) - checkin_date).days
-        total_price = self.calc_daily_total(property_id=property_id, checkin_date=checkin_date,
-                                            checkout_date=checkout_date)
+        nights_price = self.calc_daily_total(property_id=property_id, checkin_date=checkin_date,
+                                             checkout_date=checkout_date)
         monthly_price = None
-        monthly_discount = None
+        monthly_discount = 0
         if duration > 28:
             monthly_price = self.calc_monthly_total(property_id=property_id, checkin_date=checkin_date,
                                                     checkout_date=checkout_date)
-            monthly_discount = total_price - monthly_price
+            monthly_discount = nights_price - monthly_price
+
+        accommodation_price = nights_price - monthly_discount
+        tax = accommodation_price * property_instance.tax_rate / 100
+        sub_total = accommodation_price + tax + +property_instance.cleaning_fee + property_instance.refundable_amount
+        transaction_fee = sub_total * property_instance.transactionfee_rate / 100
+        total = (1 + property_instance.transactionfee_rate / 100) * sub_total
 
         data = {
-            'flat_price': float("{:.2f}".format(total_price)),
-            'duration': duration,
+            'nights': duration,
+            'nights_price': float("{:.2f}".format(nights_price)),
+            'monthly_discount': float("{:.2f}".format(monthly_discount)),
+            'tax': float("{:.2f}".format(tax)),
+            'transaction_fee': float("{:.2f}".format(transaction_fee)),
+            'cleaning_fee': float("{:.2f}".format(property_instance.cleaning_fee)),
+            'refundable_amount': float("{:.2f}".format(property_instance.refundable_amount)),
+            'total': float("{:.2f}".format(total))
         }
-        if monthly_price:
-            data['monthly_price'] = float("{:.2f}".format(monthly_price))
-            data['monthly_discount'] = float("{:.2f}".format(monthly_discount))
 
         # try:
         #     response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
