@@ -95,8 +95,10 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
     def get_checked_dates(obj):
         checked_dates = []
         result = get_property_availability(obj.bookerville_id)
+        # escape special characters
+        result = str(result, "utf-8").replace("&", "&amp;")
+        logger.info("PropertyDetailSerializer->get_checked_dates result %s" % result)
         root = et.fromstring(result)
-        logger.info("PropertyDetailSerializer->get_checked_dates %s" % result)
 
         arrival_dates = [e.text for e in root.findall('BookedStays/BookedStay//ArrivalDate')]
         departure_dates = [e.text for e in root.findall('BookedStays/BookedStay//DepartureDate')]
