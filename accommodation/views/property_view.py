@@ -1,15 +1,13 @@
 from urllib.parse import parse_qs
 import urllib.parse as urlparse
-
 import xml.etree.ElementTree as et
-
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView, ListCreateAPIView
 
 from accommodation.models import Category
 from accommodation.models.property import Property
 from accommodation.serializers.property_serializer import PropertyDetailSerializer, PropertyListingItemSerializer, \
     PropertyMapItemSerializer, AdminPropertyListItemSerializer, AdminPropertyDetailSerializer
-from accommodation.utils import get_multi_property_availability
+from accommodation.utils import get_multi_property_availability, get_all_properties
 
 """
 Guest View

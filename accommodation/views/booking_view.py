@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 
+import xmltodict
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
@@ -16,28 +17,31 @@ from rest_framework.views import APIView
 from accommodation.models import Property, Price
 from accommodation.models.price import MonthlyPrice
 from accommodation.serializers.booking_serializer import BookingObjectSerializer
-from accommodation.utils import get_add, get_payment, get_property_availability, get_quote
+from accommodation.utils import get_add, get_payment, get_property_availability, get_quote, get_all_properties
+
+logger = logging.getLogger('django')
 
 
-class AddPaymentAPIView(CreateAPIView):
-    serializer_class = BookingObjectSerializer
+class BkvPropertyListingView(APIView):
     permission_classes = []
 
+    def get(self, request):
+        data = get_all_properties()
+        return Response(data=data)
+
+
+class BkvAddPaymentView(CreateAPIView):
+    permission_classes = []
+    serializer_class = BookingObjectSerializer
+
     def create(self, request, *args, **kwargs):
-        valid_ser = self.serializer_class(data=request.data)
+        booking_serializer = self.serializer_class(data=request.data)
 
-        if valid_ser.is_valid():
-            res = self.add_payment(valid_ser.validated_data)
-            if res['status'] == 'ok':
-                return JsonResponse(data={'booking_id': res['booking_id']}, safe=True, status=HTTP_201_CREATED)
-            else:
-                return JsonResponse(data={'error': res['error']}, safe=True, status=HTTP_400_BAD_REQUEST)
-        else:
-            return HttpResponse(json.dumps(valid_ser.errors), content_type="application/json",
-                                status=HTTP_400_BAD_REQUEST)
+        if not booking_serializer.is_valid():
+            return Response(status=HTTP_400_BAD_REQUEST, data=booking_serializer.errors)
 
-    @staticmethod
-    def add_payment(data):
+        data = booking_serializer.validated_data
+
         property_num = data["bookerville_id"]
         begin_date = data["checkin_date"].strftime("%Y-%m-%d")
         end_date = data["checkout_date"].strftime("%Y-%m-%d")
@@ -66,15 +70,13 @@ class AddPaymentAPIView(CreateAPIView):
             ('Pre-Tax Subtotal', total - transaction_fee, 'no')
         ]
 
-        # add booking API
-        result = get_add(property_num=property_num, begin_date=begin_date, end_date=end_date, adults=adults,
+        result = get_add(property_num=1111, begin_date=begin_date, end_date=end_date, adults=adults,
                          child=children, address=street, state=state, city=city, zip=zip_code, country=country,
                          first_name=first_name, last_name=last_name, email=email, phone=phone,
                          rent=property_fee, cleaning_fee=cleaning_fee, total=total, net=property_fee, state_tax=tax,
-                         add_items=add_items,
-                         refund=refundable_amount, operation="ADD")
+                         add_items=add_items, refund=refundable_amount, operation="ADD")
+        logger.info("BookervilleAddPaymentView :>> result %s" % result)
 
-        print('=========Add Booking API Response======\n', result)
         root = et.fromstring(result)
         book_id = [e.text for e in root.findall('bkvBookingId')]
 
@@ -97,13 +99,6 @@ class AddPaymentAPIView(CreateAPIView):
         get_payment(book_id=bkv_booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
                     operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
 
-        print('=========Add Payment API Response======\n', result)
-
-        return {
-            'status': 'ok',
-            'booking_id': bkv_booking_id
-        }
-
 
 class BookingPricingView(APIView):
     permission_classes = []
@@ -121,14 +116,22 @@ class BookingPricingView(APIView):
         if not property_instance:
             raise ValidationError({"property": "invalid"})
 
-        # logger = logging.getLogger('django')
-        # logger.log(0, "BookingPricingView")
+        try:
+            response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
+                                 end_date=checkout_date, adults=adults, children=children)
+            logger.info("BookingPricingView :>> response %s" % response)
+            root = et.fromstring(response)
+            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
+        except:
+            logger.info("BookingPricingView :>> except")
 
         checkin_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
         checkout_date = datetime.strptime(checkout_date, "%Y-%m-%d").date()
+
         duration = (checkout_date + relativedelta(days=1) - checkin_date).days
         nights_price = self.calc_daily_total(property_id=property_id, checkin_date=checkin_date,
                                              checkout_date=checkout_date)
+
         monthly_price = None
         monthly_discount = 0
         if duration > 28:
@@ -152,12 +155,6 @@ class BookingPricingView(APIView):
             'refundable_amount': float("{:.2f}".format(property_instance.refundable_amount)),
             'total': float("{:.2f}".format(total))
         }
-
-        # try:
-        #     response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
-        #                          end_date=checkout_date, adults=adults, children=children)
-        # except:
-        #     logger = logging.getLogger('django')
 
         return Response(data=data)
 

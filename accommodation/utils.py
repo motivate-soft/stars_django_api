@@ -2,12 +2,14 @@ import logging
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 from bs4 import BeautifulSoup
+from rest_framework import serializers
+
 from django_api.settings.base import BOOKERVILLE_API_KEY
 
 logger = logging.getLogger('django')
 
 
-class Property:
+class BkvProperty:
     def __init__(self, property_id, account_id, last_update_date, detail_api_html=None):
         self.property_id = property_id  # The Bookerville property ID
         self.account_id = account_id  # The Bookerville account ID
@@ -21,6 +23,13 @@ class Property:
         return self.property_id + " : " + self.account_id
 
 
+# class BkvPropertySerializer(serializers.Serializer):
+#     property_id = serializers.IntegerField()
+#     account_id = serializers.IntegerField()
+#     last_update_date = serializers.CharField()
+#     detail_api_html = serializers.CharField()
+
+
 def get_all_properties(auth_key=BOOKERVILLE_API_KEY):
     summary_string = 'https://www.bookerville.com/API-PropertySummary?s3cr3tK3y='
     request = summary_string + auth_key
@@ -29,39 +38,71 @@ def get_all_properties(auth_key=BOOKERVILLE_API_KEY):
     tree = ElementTree.parse(u)
     root_elem = tree.getroot()
     prop_list = root_elem.findall("Property")
-    # return prop_list
+
     if len(prop_list) <= 0:
         return None
     ret_val = []
     for child in prop_list:
-        html_link = child.attrib['property_details_api_url']
-        bkv_account = child.attrib['bkv_account_id']
-        property_id = child.attrib['property_id']
-        last_update = child.attrib['last_update']
-
-        new_prop = Property(property_id, bkv_account, last_update, html_link)
-
-        ret_val.append(new_prop)
+        ret_val.append({
+            "html_link": child.attrib['property_details_api_url'],
+            "bkv_account": child.attrib['bkvAccountId'],
+            "property_id": child.attrib['property_id'],
+            "last_update": child.attrib['last_update'],
+        })
     return ret_val
 
 
 def get_quote(property_num, begin_date, end_date, adults, children, guest_email='', guest_address='',
               city='', state='', country='', first_name='', last_name='', phone='', zip='', company='', channel='',
-              operation='QUOTE',
-              auth_key=BOOKERVILLE_API_KEY):
+              operation='QUOTE', auth_key=BOOKERVILLE_API_KEY):
     req_url = "https://www.bookerville.com/API-Booking?s3cr3tK3y=" + auth_key
     xml_string = "<request><operation>" + operation + "</operation><company>" + company + "</company><channel>" + channel + "</channel><bkvPropertyId>" + str(
         property_num) + "</bkvPropertyId><begin_date>" + begin_date + "</begin_date><end_date>" + end_date + "</end_date><adults>" + str(
         adults) + "</adults><children>" + str(
         children) + "</children><guestData><email>" + guest_email + "</email><address>" + guest_address + "</address><city>" + city + "</city><state>" + state + "</state><country>" + country + "</country><first_name>" + first_name + "</first_name><last_name>" + last_name + "</last_name><phone>" + str(
         phone) + "</phone><zip>" + str(zip) + "</zip></guestData></request>"
+
+    guest_string = ''
+    if guest_email:
+        guest_string += "<email>" + guest_email + "</email>"
+    if guest_address:
+        guest_string += "<address>" + guest_address + "</address>"
+    if city:
+        guest_string += "<city>" + guest_address + "</city>"
+    if state:
+        guest_string += "<state>" + state + "</state>"
+    if country:
+        guest_string += "<country>" + country + "</country>"
+    if first_name:
+        guest_string += "<first_name>" + first_name + "</first_name>"
+    if last_name:
+        guest_string += "<last_name>" + last_name + "</last_name>"
+    if guest_address:
+        guest_string += "<address>" + guest_address + "</address>"
+    if phone:
+        guest_string += "<address>" + str(phone) + "</phone>"
+    if zip:
+        guest_string += "<zip>" + str(zip) + "</zip>"
+    if company:
+        guest_string += "<company>" + company + "</company>"
+    if company:
+        guest_string += "<company>" + company + "</company>"
+
+    if guest_string != '':
+        xml_string += '<guestData>' + guest_string + '</guestData>'
+
+    if company:
+        xml_string += "<company>" + company + "</company>"
+    if channel:
+        xml_string += "<channel>" + channel + "</channel>"
+
     req = Request(url=req_url, data=xml_string.encode('utf-8'), headers={
         'Content-Type': 'application/xml'})
     response = urlopen(req)
     val = response.read()
-    y = BeautifulSoup(val)
+    # y = BeautifulSoup(val)
 
-    return y
+    return val
 
 
 def get_add(property_num, begin_date, end_date, adults, email, address, state, city, zip, country, first_name,
@@ -115,8 +156,7 @@ def get_remove(bk_id, property_id, begin_date, end_date, operation='DELETE', aut
 
 
 def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_type="Paypal", refund_portion=0,
-                venue='Venue',
-                auth_key=BOOKERVILLE_API_KEY):
+                venue='Venue', auth_key=BOOKERVILLE_API_KEY):
     if operation != "Delete":
         pay_id = ""
     payment_string = "https://www.bookerville.com/API-Payment?s3cr3tK3y=" + auth_key
