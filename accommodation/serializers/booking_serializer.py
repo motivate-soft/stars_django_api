@@ -52,3 +52,17 @@ class BookingObjectSerializer(serializers.Serializer):
 
     guest = GuestObjectSerializer()
     billing = BillingObjectSerializer()
+
+
+class BookingQuoteSerializer(serializers.Serializer):
+    def create(self, validated_data):
+        pass
+
+    def update(self, instance, validated_data):
+        pass
+
+    property = serializers.IntegerField()
+    checkin_date = serializers.DateField()
+    checkout_date = serializers.DateField()
+    adults = serializers.IntegerField(required=False)
+    children = serializers.IntegerField(required=False)

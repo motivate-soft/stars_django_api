@@ -52,55 +52,52 @@ def get_all_properties(auth_key=BOOKERVILLE_API_KEY):
     return ret_val
 
 
-def get_quote(property_num, begin_date, end_date, adults, children, guest_email='', guest_address='',
+def get_quote(property_num, begin_date, end_date, adults=1, children=0, guest_email='', guest_address='',
               city='', state='', country='', first_name='', last_name='', phone='', zip='', company='', channel='',
               operation='QUOTE', auth_key=BOOKERVILLE_API_KEY):
     req_url = "https://www.bookerville.com/API-Booking?s3cr3tK3y=" + auth_key
-    xml_string = "<request><operation>" + operation + "</operation><company>" + company + "</company><channel>" + channel + "</channel><bkvPropertyId>" + str(
-        property_num) + "</bkvPropertyId><begin_date>" + begin_date + "</begin_date><end_date>" + end_date + "</end_date><adults>" + str(
-        adults) + "</adults><children>" + str(
-        children) + "</children><guestData><email>" + guest_email + "</email><address>" + guest_address + "</address><city>" + city + "</city><state>" + state + "</state><country>" + country + "</country><first_name>" + first_name + "</first_name><last_name>" + last_name + "</last_name><phone>" + str(
-        phone) + "</phone><zip>" + str(zip) + "</zip></guestData></request>"
+    xml_string = "<operation>" + operation + "</operation><bkvPropertyId>" + str(
+        property_num) + "</bkvPropertyId><beginDate>" + begin_date + "</beginDate><endDate>" + end_date + "</endDate><adults>" + str(
+        adults) + "</adults><children>" + str(children) + "</children>"
 
+    # Extra Data
+    if company != '':
+        xml_string += "<company>" + company + "</company>"
+    if channel != '':
+        xml_string += "<channel>" + channel + "</channel>"
+
+    # Guest data
     guest_string = ''
-    if guest_email:
+    if guest_email != '':
         guest_string += "<email>" + guest_email + "</email>"
-    if guest_address:
+    if guest_address != '':
         guest_string += "<address>" + guest_address + "</address>"
-    if city:
+    if city != '':
         guest_string += "<city>" + guest_address + "</city>"
-    if state:
+    if state != '':
         guest_string += "<state>" + state + "</state>"
-    if country:
+    if country != '':
         guest_string += "<country>" + country + "</country>"
-    if first_name:
+    if first_name != '':
         guest_string += "<first_name>" + first_name + "</first_name>"
-    if last_name:
+    if last_name != '':
         guest_string += "<last_name>" + last_name + "</last_name>"
-    if guest_address:
+    if guest_address != '':
         guest_string += "<address>" + guest_address + "</address>"
-    if phone:
+    if phone != '':
         guest_string += "<address>" + str(phone) + "</phone>"
-    if zip:
+    if zip != '':
         guest_string += "<zip>" + str(zip) + "</zip>"
-    if company:
-        guest_string += "<company>" + company + "</company>"
-    if company:
-        guest_string += "<company>" + company + "</company>"
 
     if guest_string != '':
         xml_string += '<guestData>' + guest_string + '</guestData>'
 
-    if company:
-        xml_string += "<company>" + company + "</company>"
-    if channel:
-        xml_string += "<channel>" + channel + "</channel>"
+    xml_string = "<request>" + xml_string + "</request>"
 
     req = Request(url=req_url, data=xml_string.encode('utf-8'), headers={
         'Content-Type': 'application/xml'})
     response = urlopen(req)
     val = response.read()
-    # y = BeautifulSoup(val)
 
     return val
 
@@ -122,6 +119,7 @@ def get_add(property_num, begin_date, end_date, adults, email, address, state, c
         state_tax) + "</amount> </tax> <tax> <id>2</id> <label>Tax2</label> <amount>" + str(
         count_tax) + "</amount> </tax> </taxes><total>" + str(
         total) + "</total><prePayment>" + str(prepayment) + "</prePayment><bookingStatus>Confirmed</bookingStatus>"
+
     # additionalItems should be a list of tuples
     xml_additions = "<additionalItems>"
     for item in add_items:
@@ -133,12 +131,12 @@ def get_add(property_num, begin_date, end_date, adults, email, address, state, c
     final = "<securityDeposit> <type>Refundable</type> <amount>" + \
             str(refund) + "</amount> </securityDeposit> <bookingURL></bookingURL> </request>"
     totalString = xml_string + xml_additions + final
-    print("\n============booking add: request string, api_key=========\n", BOOKERVILLE_API_KEY, totalString)
-    req = Request(url=req_url, data=totalString.encode('utf-8'),
-                  headers={'Content-Type': 'application/xml'})
+
+    logger.info("Bookerville Utils :>> get_add %s" % totalString)
+
+    req = Request(url=req_url, data=totalString.encode('utf-8'), headers={'Content-Type': 'application/xml'})
     response = urlopen(req)
     val = response.read()
-    # y = BeautifulSoup(val)
     return val
 
 
@@ -165,12 +163,14 @@ def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_typ
         pay_id) + "</bkvBookingPaymentId> <datePaid>" + date_paid + "</datePaid> <type>" + payment_type + "</type> <amount>" + str(
         amount) + "</amount> <refundableSecurityDepositPortion>" + str(
         refund_portion) + "</refundableSecurityDepositPortion> <depositVenue>" + venue + "</depositVenue> </bookingPayment>"
-    print("\n============request string=========\n", xml_string)
+
+    logger.info("Bookerville Utils :>> get_payment %s" % xml_string)
+
     req = Request(url=payment_string, data=xml_string.encode(
         'utf-8'), headers={'Content-Type': 'application/xml'})
     response = urlopen(req)
     val = response.read()
-    y = BeautifulSoup(val)
+    # y = BeautifulSoup(val)
     return val
 
 

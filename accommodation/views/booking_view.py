@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime, timedelta
+from urllib.error import HTTPError
 
 import xmltodict
 from dateutil.relativedelta import relativedelta
@@ -11,12 +12,12 @@ import json
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_500_INTERNAL_SERVER_ERROR
 from rest_framework.views import APIView
 
 from accommodation.models import Property, Price
 from accommodation.models.price import MonthlyPrice
-from accommodation.serializers.booking_serializer import BookingObjectSerializer
+from accommodation.serializers.booking_serializer import BookingObjectSerializer, BookingQuoteSerializer
 from accommodation.utils import get_add, get_payment, get_property_availability, get_quote, get_all_properties
 
 logger = logging.getLogger('django')
@@ -70,69 +71,112 @@ class BkvAddPaymentView(CreateAPIView):
             ('Pre-Tax Subtotal', total - transaction_fee, 'no')
         ]
 
-        result = get_add(property_num=1111, begin_date=begin_date, end_date=end_date, adults=adults,
-                         child=children, address=street, state=state, city=city, zip=zip_code, country=country,
-                         first_name=first_name, last_name=last_name, email=email, phone=phone,
-                         rent=property_fee, cleaning_fee=cleaning_fee, total=total, net=property_fee, state_tax=tax,
-                         add_items=add_items, refund=refundable_amount, operation="ADD")
-        logger.info("BookervilleAddPaymentView :>> result %s" % result)
+        """
+        Bookerville Add Booking
+        """
+        try:
+            response = get_add(property_num=property_num, begin_date=begin_date, end_date=end_date, adults=adults,
+                               child=children, address=street, state=state, city=city, zip=zip_code, country=country,
+                               first_name=first_name, last_name=last_name, email=email, phone=phone,
+                               rent=property_fee, cleaning_fee=cleaning_fee, total=total, net=property_fee,
+                               state_tax=tax,
+                               add_items=add_items, refund=refundable_amount, operation="ADD")
+            response = str(response, "utf-8").replace("&", "&amp;")
+            logger.info("BkvAddPaymentView :>> response %s" % response)
 
-        root = et.fromstring(result)
-        book_id = [e.text for e in root.findall('bkvBookingId')]
+            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
+            response_data = data['BKV-API-Booking-Response']
+            if response_data['status'] == 'success':
+                booking_id = response_data['bkvBookingId']
+                booking_confirm_code = response_data['confirmCode']
+                booking_url = response_data['bkvBookingURL']
+            elif response_data['status'] == 'failure':
+                booking_error = response_data['error']
+                return Response(data=booking_error, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+        except HTTPError as error:
+            logger.error("BkvAddPaymentView :>> error %s" % error)
+            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
-        if len(book_id) > 0:
-            bkv_booking_id = book_id[0]
-        else:
-            error = [e.text for e in root.findall('error')]
-            return {
-                'status': 'failed',
-                'error': error[0]
-            }
-
-        # add payment API
         payment_type = "Paypal"
         pay_id = ""
         date_paid = datetime.now().strftime('%Y-%m-%d %H:%M')
 
-        get_payment(book_id=bkv_booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
-                    operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
-        get_payment(book_id=bkv_booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
-                    operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
+        """
+        Bookerville Add Payment
+        """
+        try:
+            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
+                        operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
+            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
+                        operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
+
+            return Response(data={
+                'booking_id': booking_id,
+                'booking_confirm_code': booking_confirm_code,
+                'booking_url': booking_url,
+            })
+        except HTTPError as error:
+            logger.error("BkvAddPaymentView :>> error %s" % error)
+            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class BookingPricingView(APIView):
     permission_classes = []
 
     def get(self, request):
-        property_id = self.request.query_params.get("property", None)
-        checkin_date = self.request.query_params.get("checkin_date", None)
-        checkout_date = self.request.query_params.get("checkout_date", None)
-        adults = self.request.query_params.get("adults", None)
-        children = self.request.query_params.get("children", None)
+        """
+        Quote Validation
+        """
+        booking_quote_serializer = BookingQuoteSerializer(data=request.query_params)
+        if not booking_quote_serializer.is_valid():
+            return Response(status=HTTP_400_BAD_REQUEST, data=booking_quote_serializer.errors)
 
-        property_instance = Property.objects.get(pk=property_id)
-        if not property_id or not checkin_date or not checkout_date:
-            raise ValidationError("Invalid data")
-        if not property_instance:
-            raise ValidationError({"property": "invalid"})
+        property_id = booking_quote_serializer.validated_data['property']
+        checkin_date = booking_quote_serializer.validated_data['checkin_date'].strftime("%Y-%m-%d")
+        checkout_date = booking_quote_serializer.validated_data['checkout_date'].strftime("%Y-%m-%d")
+        adults = booking_quote_serializer.validated_data.get("adults", None)
+        children = booking_quote_serializer.validated_data.get("children", None)
 
         try:
-            response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
-                                 end_date=checkout_date, adults=adults, children=children)
-            logger.info("BookingPricingView :>> response %s" % response)
-            root = et.fromstring(response)
-            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
-        except:
-            logger.info("BookingPricingView :>> except")
+            property_instance = Property.objects.get(pk=property_id)
+        except Property.DoesNotExist:
+            property_instance = None
+        if not property_instance:
+            raise ValidationError({"property": "invalid property id"})
 
+        """
+        Bookerville Quote API
+        """
+        booking_confirm_code = None
+        try:
+            response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
+                                 end_date=checkout_date)
+            response = str(response, "utf-8").replace("&", "&amp;")
+            logger.info("BookingPricingView :>> response %s" % response)
+
+            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
+            response_data = data['BKV-API-Booking-Response']
+            if response_data['status'] == 'success':
+                booking_confirm_code = response_data['confirmCode']
+            elif response_data['status'] == 'failure':
+                booking_error = response_data['error']
+                return Response(data=booking_error, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+        except HTTPError as error:
+            logger.error("BookingPricingView :>> error %s" % error)
+            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+
+        """
+        Calculate Booking Price
+        """
         checkin_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
         checkout_date = datetime.strptime(checkout_date, "%Y-%m-%d").date()
-
         duration = (checkout_date + relativedelta(days=1) - checkin_date).days
         nights_price = self.calc_daily_total(property_id=property_id, checkin_date=checkin_date,
                                              checkout_date=checkout_date)
-
-        monthly_price = None
         monthly_discount = 0
         if duration > 28:
             monthly_price = self.calc_monthly_total(property_id=property_id, checkin_date=checkin_date,
@@ -146,6 +190,7 @@ class BookingPricingView(APIView):
         total = (1 + property_instance.transactionfee_rate / 100) * sub_total
 
         data = {
+            'booking_confirm_code': booking_confirm_code,
             'nights': duration,
             'nights_price': float("{:.2f}".format(nights_price)),
             'monthly_discount': float("{:.2f}".format(monthly_discount)),
