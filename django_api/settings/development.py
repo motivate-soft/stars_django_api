@@ -29,6 +29,8 @@ AUTH_PASSWORD_VALIDATORS = []
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/emails'
 
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

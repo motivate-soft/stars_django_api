@@ -1,3 +1,4 @@
+import json
 import logging
 from datetime import datetime, timedelta
 from urllib.error import HTTPError
@@ -5,22 +6,126 @@ from urllib.error import HTTPError
 import xmltodict
 from dateutil.relativedelta import relativedelta
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
-import xml.etree.ElementTree as et
-import json
+from rest_framework import viewsets
 
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_500_INTERNAL_SERVER_ERROR
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED, HTTP_500_INTERNAL_SERVER_ERROR, HTTP_200_OK
 from rest_framework.views import APIView
 
 from accommodation.models import Property, Price
+from accommodation.models.booking import Booking
 from accommodation.models.price import MonthlyPrice
-from accommodation.serializers.booking_serializer import BookingObjectSerializer, BookingQuoteSerializer
-from accommodation.utils import get_add, get_payment, get_property_availability, get_quote, get_all_properties
+from accommodation.serializers.booking_serializer import BkvBookingSerializer, BkvBookingQuoteSerializer, \
+    BookingDetailSerializer, BookingListingSerializer
+from accommodation.utils import get_add, get_payment, get_quote, get_all_properties
+
+from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
+
+from accommodation.views.payment_view import Paypal
+from accommodation.views.paypal_client import PaypalClient
+from paypalcheckoutsdk.orders import OrdersCreateRequest
+from paypalhttp import HttpError
 
 logger = logging.getLogger('django')
+
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BookingListingSerializer
+        return BookingDetailSerializer
+
+    def get_permissions(self):
+        if self.action == 'list' or self.action == 'retrieve' or self.action == 'create':
+            permission_classes = []
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
+
+class CreateClientTokenView(CreateAPIView):
+    permission_classes = []
+    def post(self, request, *args, **kwargs):
+        paypal_instance = Paypal()
+        return Response({"token": paypal_instance.generate_client_token()}, status=HTTP_201_CREATED)
+
+
+class BookingOrderView(CreateAPIView):
+    """
+    Create paypal order and return order detail.
+    """
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        # Validate request
+        serializer = BkvBookingQuoteSerializer(data=request.data)
+        serializer.is_valid()
+        data = serializer.data
+
+        # Calculate booking price
+        pricing = BookingPricing(property_id=data['property'], checkin_date=data['checkin_date'],
+                                 checkout_date=data['checkout_date'], adults=data['adults'], children=data['children'])
+        pricing_instance = pricing.calc_price()
+
+        # Create paypal order
+        order_request = OrdersCreateRequest()
+        order_request.prefer('return=representation')
+        order_request.request_body(
+            {
+                "intent": "CAPTURE",
+                "purchase_units": [
+                    {
+                        "amount": {
+                            "currency_code": "USD",
+                            "value": pricing_instance['total']
+                        }
+                    }
+                ]
+            }
+        )
+        paypal_client = PaypalClient()
+
+        try:
+            response = paypal_client.execute(request=order_request)
+            result = response.result
+            logger.info("Paypal Create Order :>>")
+            logger.info(
+                {
+                    "id": response.result.id,
+                    "create_time": response.result.create_time,
+                    "status": response.result.status,
+                }
+            )
+
+            links = [{"href": link.href, "method": link.method, "rel": link.rel} for link in result.links]
+            data = {
+                "id": result.id,
+                "create_time": result.create_time,
+                "intent": result.intent,
+                "links": links,
+                "status": result.status,
+            }
+
+            logger.info(data)
+
+            return Response(data=data, status=HTTP_201_CREATED)
+
+        except IOError as ioe:
+            logger.info("Paypal Create Order ioe :>> %s" % ioe)
+            if isinstance(ioe, HttpError):
+                # Something went wrong server-side
+                logger.info("Paypal Create Order ioe.status_code :>> %s" % ioe.status_code)
+            return Response(ioe)
+
+
+class BookingConfirmView(CreateAPIView):
+    pass
 
 
 class BkvPropertyListingView(APIView):
@@ -33,7 +138,7 @@ class BkvPropertyListingView(APIView):
 
 class BkvAddPaymentView(CreateAPIView):
     permission_classes = []
-    serializer_class = BookingObjectSerializer
+    serializer_class = BkvBookingSerializer
 
     def create(self, request, *args, **kwargs):
         booking_serializer = self.serializer_class(data=request.data)
@@ -122,14 +227,15 @@ class BkvAddPaymentView(CreateAPIView):
             return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class BookingPricingView(APIView):
+class BkvQuoteView(APIView):
     permission_classes = []
 
     def get(self, request):
         """
-        Quote Validation
+        Validate booking quote and calculate price
         """
-        booking_quote_serializer = BookingQuoteSerializer(data=request.query_params)
+        # Validate quote request
+        booking_quote_serializer = BkvBookingQuoteSerializer(data=request.query_params)
         if not booking_quote_serializer.is_valid():
             return Response(status=HTTP_400_BAD_REQUEST, data=booking_quote_serializer.errors)
 
@@ -146,9 +252,7 @@ class BookingPricingView(APIView):
         if not property_instance:
             raise ValidationError({"property": "invalid property id"})
 
-        """
-        Bookerville Quote API
-        """
+        # booking quote API
         booking_confirm_code = None
         try:
             response = get_quote(property_num=property_instance.bookerville_id, begin_date=checkin_date,
@@ -169,39 +273,58 @@ class BookingPricingView(APIView):
             logger.error("BookingPricingView :>> error %s" % error)
             return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
-        """
-        Calculate Booking Price
-        """
-        checkin_date = datetime.strptime(checkin_date, "%Y-%m-%d").date()
-        checkout_date = datetime.strptime(checkout_date, "%Y-%m-%d").date()
+        # Calculate price
+        pricing_instance = BookingPricing(property_id=property_id, checkin_date=checkin_date,
+                                          checkout_date=checkout_date, adults=adults, children=children)
+
+        return Response(data=pricing_instance.calc_price(), status=HTTP_200_OK)
+
+
+class BookingPricing:
+    def __init__(self, property_id, checkin_date, checkout_date, adults, children, **kwargs):
+        property_instance = Property.objects.get(pk=property_id)
+        self.property_id = property_id
+        self.property = property_instance
+        self.checkin_date = checkin_date
+        self.checkout_date = checkout_date
+        self.adults = adults
+        self.children = children
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    def calc_price(self):
+        checkin_date = datetime.strptime(self.checkin_date, "%Y-%m-%d").date()
+        checkout_date = datetime.strptime(self.checkout_date, "%Y-%m-%d").date()
         duration = (checkout_date + relativedelta(days=1) - checkin_date).days
-        nights_price = self.calc_daily_total(property_id=property_id, checkin_date=checkin_date,
+        nights_price = self.calc_daily_total(property_id=self.property_id, checkin_date=checkin_date,
                                              checkout_date=checkout_date)
         monthly_discount = 0
+
+        # apply monthly pricing for booking more than 28days
         if duration > 28:
-            monthly_price = self.calc_monthly_total(property_id=property_id, checkin_date=checkin_date,
+            monthly_price = self.calc_monthly_total(property_id=self.property_id, checkin_date=checkin_date,
                                                     checkout_date=checkout_date)
             monthly_discount = nights_price - monthly_price
 
         accommodation_price = nights_price - monthly_discount
-        tax = accommodation_price * property_instance.tax_rate / 100
-        sub_total = accommodation_price + tax + +property_instance.cleaning_fee + property_instance.refundable_amount
-        transaction_fee = sub_total * property_instance.transactionfee_rate / 100
-        total = (1 + property_instance.transactionfee_rate / 100) * sub_total
+        tax = accommodation_price * self.property.tax_rate / 100
+        sub_total = accommodation_price + tax + +self.property.cleaning_fee + self.property.refundable_amount
+        transaction_fee = sub_total * self.property.transactionfee_rate / 100
+        total = (1 + self.property.transactionfee_rate / 100) * sub_total
 
         data = {
-            'booking_confirm_code': booking_confirm_code,
             'nights': duration,
             'nights_price': float("{:.2f}".format(nights_price)),
             'monthly_discount': float("{:.2f}".format(monthly_discount)),
             'tax': float("{:.2f}".format(tax)),
             'transaction_fee': float("{:.2f}".format(transaction_fee)),
-            'cleaning_fee': float("{:.2f}".format(property_instance.cleaning_fee)),
-            'refundable_amount': float("{:.2f}".format(property_instance.refundable_amount)),
+            'cleaning_fee': float("{:.2f}".format(self.property.cleaning_fee)),
+            'refundable_amount': float("{:.2f}".format(self.property.refundable_amount)),
             'total': float("{:.2f}".format(total))
         }
 
-        return Response(data=data)
+        return data
 
     def calc_daily_total(self, property_id, checkin_date, checkout_date):
         query = Price.objects.filter(

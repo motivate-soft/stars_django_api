@@ -1,4 +1,39 @@
 from rest_framework import serializers
+from accommodation.models.booking import Booking
+from accommodation.serializers.property_serializer import AdminPropertyListItemSerializer
+
+
+class BookingListingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = (
+            '__all__'
+        )
+
+    property = AdminPropertyListItemSerializer()
+    # guest = CustomUserDetailsSerializer()
+    email = serializers.EmailField()
+    phone_number = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    start = serializers.DateField()
+    end = serializers.DateField()
+    status = serializers.CharField(max_length=10)
+    order_id = serializers.CharField(max_length=50)
+
+
+class BookingDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ('__all__')
+
+    def create(self, validated_data):
+        # save paypal order id
+        pass
+
+    def update(self, instance, validated_data):
+        # update status based on capture payment
+        pass
 
 
 class BillingObjectSerializer(serializers.Serializer):
@@ -30,7 +65,7 @@ class GuestObjectSerializer(serializers.Serializer):
     last_name = serializers.CharField()
 
 
-class BookingObjectSerializer(serializers.Serializer):
+class BkvBookingSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         pass
@@ -54,7 +89,7 @@ class BookingObjectSerializer(serializers.Serializer):
     billing = BillingObjectSerializer()
 
 
-class BookingQuoteSerializer(serializers.Serializer):
+class BkvBookingQuoteSerializer(serializers.Serializer):
     def create(self, validated_data):
         pass
 

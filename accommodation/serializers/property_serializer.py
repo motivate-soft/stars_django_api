@@ -51,6 +51,7 @@ class PropertyMapItemSerializer(serializers.ModelSerializer):
         )
 
 
+
 class PropertyDetailSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()
     property_rooms = RoomDetailSerializer(many=True, read_only=True)

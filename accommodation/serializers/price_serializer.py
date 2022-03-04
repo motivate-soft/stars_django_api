@@ -1,6 +1,6 @@
 import datetime
 from rest_framework import serializers
-from accommodation.models import Price, Property
+from accommodation.models import Price
 from accommodation.models.price import MonthlyPrice
 
 
