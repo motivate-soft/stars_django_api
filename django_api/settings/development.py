@@ -13,11 +13,11 @@ INSTALLED_APPS += [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '127.0.0.1',
         'PORT': '3306',
-        'NAME': 'starsofboston',
-        'USER': 'root',
-        'PASSWORD': '',
+        'HOST': env('DB_HOST'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
     }
 }
 
@@ -28,6 +28,8 @@ AUTH_PASSWORD_VALIDATORS = []
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = 'tmp/emails'
+
+
 
 LOGGING = {
     'version': 1,
