@@ -28,8 +28,9 @@ class BookingDetailSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
     def create(self, validated_data):
+        instance = super(BookingDetailSerializer, self).create(validated_data)
         # save paypal order id
-        pass
+        return instance
 
     def update(self, instance, validated_data):
         # update status based on capture payment

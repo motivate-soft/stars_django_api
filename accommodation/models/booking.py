@@ -24,10 +24,20 @@ class Booking(models.Model):
     phone_number = models.CharField(null=True, max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+
+    country = models.CharField(null=True, max_length=20)
+    state = models.CharField(null=True, max_length=50)
+    city = models.CharField(null=True, max_length=50)
+    street = models.CharField(null=True, max_length=100)
+    zip_code = models.CharField(null=True, max_length=20)
+
     start = models.DateField()
     end = models.DateField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)
     order_id = models.CharField(max_length=50)
+
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return '%s ~ %s' % (self.start, self.end)

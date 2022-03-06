@@ -6,7 +6,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
 from accommodation.views.paypal_client import PaypalClient
-from paypalcheckoutsdk.orders import OrdersCreateRequest
+from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest, OrdersAuthorizeRequest
 from paypalhttp import HttpError
 
 logger = logging.getLogger('django')
@@ -23,11 +23,11 @@ proxyDict = {
 
 import paypalhttp
 
-
 try:
     from urllib import quote  # Python 2.X
 except ImportError:
     from urllib.parse import quote  # Python 3+
+
 
 class TokenCreateRequest:
     """
@@ -41,7 +41,6 @@ class TokenCreateRequest:
         self.headers["Content-Type"] = "application/json"
         self.body = None
 
-
     def prefer(self, prefer):
         self.headers["Prefer"] = str(prefer)
 
@@ -50,9 +49,7 @@ class TokenCreateRequest:
         return self
 
 
-
-
-class Paypal:
+class PaypalRestAPI:
     def __init__(self):
         self.paypal_client = PaypalClient()
 
@@ -71,13 +68,12 @@ class Paypal:
             return data
 
         except IOError as ioe:
-            logger.info("Paypal Create Order ioe :>> %s" % ioe)
+            logger.info("PaypalRestAPI Generate token ioe :>> %s" % ioe)
 
             if isinstance(ioe, HttpError):
-                logger.info("Paypal Create Order ioe.status_code :>> %s" % ioe.status_code)
+                logger.info("PaypalRestAPI Generate token ioe.status_code :>> %s" % ioe.status_code)
             return Response(ioe)
         pass
-
 
     def create_order(self, amount, **kwargs):
 
@@ -96,26 +92,47 @@ class Paypal:
                 ]
             }
         )
-        paypal_client = PaypalClient()
         try:
-            response = paypal_client.execute(request=order_request)
-            # logger.info("Paypal Create Order :>> %s" % dump(response))
-            # print("Paypal Create Order :>> %s" % response)
+            response = self.paypal_client.execute(request=order_request)
+            # logger.info("PaypalRestAPI Create Order :>> %s" % dump(response))
             data = {
                 "id": response.result.id,
                 "create_time": response.result.create_time,
                 "intent": response.result.intent,
-                # "links": response.result.links,
                 "status": response.result.status,
             }
-            return Response(data)
+            return data
 
         except IOError as ioe:
-            logger.info("Paypal Create Order ioe :>> %s" % ioe)
-            # print("Paypal Create Order ioe :>> %s" % ioe)
-            # if isinstance(ioe, HttpError):
-            #     # Something went wrong server-side
-            #     logger.info("Paypal Create Order ioe.status_code :>> %s" % ioe.status_code)
-            #     print("Paypal Create Order ioe.status_code :>> %s" % ioe.status_code)
-            return Response(ioe)
+            logger.info("PaypalRestAPI Create Order ioe :>> %s" % ioe)
+            if isinstance(ioe, HttpError):
+                logger.info("PaypalRestAPI Create Order ioe.status_code :>> %s" % ioe.status_code)
+            return ioe
+        pass
+
+    def capture_order(self, order_id, **kwargs):
+
+        order_request = OrdersCaptureRequest(order_id)
+        order_request.prefer('return=representation')
+
+        try:
+            response = self.paypal_client.execute(request=order_request)
+            logger.info("PaypalRestAPI Capture Order :>> %s" % response.result.id)
+            links = [{"href": link.href, "method": link.method, "rel": link.rel} for link in response.result.links]
+            # payment_source
+
+            data = {
+                "id": response.result.id,
+                "create_time": response.result.create_time,
+                "intent": response.result.intent,
+                "links": links,
+                "status": response.result.status,
+            }
+            return data
+
+        except IOError as ioe:
+            logger.info("PaypalRestAPI Capture Order ioe :>> %s" % ioe)
+            if isinstance(ioe, HttpError):
+                logger.info("PaypalRestAPI Capture Order ioe.status_code :>> %s" % ioe.status_code)
+            return ioe
         pass

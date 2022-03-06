@@ -153,7 +153,7 @@ def get_remove(bk_id, property_id, begin_date, end_date, operation='DELETE', aut
     return y
 
 
-def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_type="Paypal", refund_portion=0,
+def get_payment(book_id, pay_id, date_paid, amount, operation='ADD', payment_type="PaypalRestAPI", refund_portion=0,
                 venue='Venue', auth_key=BOOKERVILLE_API_KEY):
     if operation != "Delete":
         pay_id = ""

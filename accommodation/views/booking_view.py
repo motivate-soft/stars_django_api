@@ -25,7 +25,7 @@ from accommodation.utils import get_add, get_payment, get_quote, get_all_propert
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from accommodation.views.payment_view import Paypal
+from accommodation.views.payment_view import PaypalRestAPI
 from accommodation.views.paypal_client import PaypalClient
 from paypalcheckoutsdk.orders import OrdersCreateRequest
 from paypalhttp import HttpError
@@ -51,9 +51,10 @@ class BookingViewSet(viewsets.ModelViewSet):
 
 class CreateClientTokenView(CreateAPIView):
     permission_classes = []
+
     def post(self, request, *args, **kwargs):
-        paypal_instance = Paypal()
-        return Response({"token": paypal_instance.generate_client_token()}, status=HTTP_201_CREATED)
+        paypal_api = PaypalRestAPI()
+        return Response(paypal_api.generate_client_token(), status=HTTP_201_CREATED)
 
 
 class BookingOrderView(CreateAPIView):
@@ -70,62 +71,25 @@ class BookingOrderView(CreateAPIView):
 
         # Calculate booking price
         pricing = BookingPricing(property_id=data['property'], checkin_date=data['checkin_date'],
-                                 checkout_date=data['checkout_date'], adults=data['adults'], children=data['children'])
+                                 checkout_date=data['checkout_date'], adults=data['adults'])
         pricing_instance = pricing.calc_price()
 
         # Create paypal order
-        order_request = OrdersCreateRequest()
-        order_request.prefer('return=representation')
-        order_request.request_body(
-            {
-                "intent": "CAPTURE",
-                "purchase_units": [
-                    {
-                        "amount": {
-                            "currency_code": "USD",
-                            "value": pricing_instance['total']
-                        }
-                    }
-                ]
-            }
-        )
-        paypal_client = PaypalClient()
 
-        try:
-            response = paypal_client.execute(request=order_request)
-            result = response.result
-            logger.info("Paypal Create Order :>>")
-            logger.info(
-                {
-                    "id": response.result.id,
-                    "create_time": response.result.create_time,
-                    "status": response.result.status,
-                }
-            )
-
-            links = [{"href": link.href, "method": link.method, "rel": link.rel} for link in result.links]
-            data = {
-                "id": result.id,
-                "create_time": result.create_time,
-                "intent": result.intent,
-                "links": links,
-                "status": result.status,
-            }
-
-            logger.info(data)
-
-            return Response(data=data, status=HTTP_201_CREATED)
-
-        except IOError as ioe:
-            logger.info("Paypal Create Order ioe :>> %s" % ioe)
-            if isinstance(ioe, HttpError):
-                # Something went wrong server-side
-                logger.info("Paypal Create Order ioe.status_code :>> %s" % ioe.status_code)
-            return Response(ioe)
+        paypal_api = PaypalRestAPI()
+        return Response(paypal_api.create_order(pricing_instance['total']), status=HTTP_201_CREATED)
 
 
 class BookingConfirmView(CreateAPIView):
-    pass
+    """
+    Confirm paypal order and update booking status.
+    """
+    permission_classes = []
+
+    def post(self, request, *args, **kwargs):
+        paypal_api = PaypalRestAPI()
+        order_id = "2AV04739U69014422"
+        return Response({"id": paypal_api.capture_order(order_id)})
 
 
 class BkvPropertyListingView(APIView):
@@ -204,7 +168,7 @@ class BkvAddPaymentView(CreateAPIView):
             logger.error("BkvAddPaymentView :>> error %s" % error)
             return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
-        payment_type = "Paypal"
+        payment_type = "PaypalRestAPI"
         pay_id = ""
         date_paid = datetime.now().strftime('%Y-%m-%d %H:%M')
 
@@ -281,14 +245,13 @@ class BkvQuoteView(APIView):
 
 
 class BookingPricing:
-    def __init__(self, property_id, checkin_date, checkout_date, adults, children, **kwargs):
+    def __init__(self, property_id, checkin_date, checkout_date, adults, **kwargs):
         property_instance = Property.objects.get(pk=property_id)
         self.property_id = property_id
         self.property = property_instance
         self.checkin_date = checkin_date
         self.checkout_date = checkout_date
         self.adults = adults
-        self.children = children
 
         for key, value in kwargs.items():
             setattr(self, key, value)
