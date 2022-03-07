@@ -31,8 +31,10 @@ class Booking(models.Model):
     street = models.CharField(null=True, max_length=100)
     zip_code = models.CharField(null=True, max_length=20)
 
-    start = models.DateField()
-    end = models.DateField()
+    checkin_date = models.DateField()
+    checkout_date = models.DateField()
+    adults = models.IntegerField(default=1)
+    children = models.IntegerField(null=True, default=0)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=PENDING)
     order_id = models.CharField(max_length=50)
 
@@ -40,4 +42,4 @@ class Booking(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s ~ %s' % (self.start, self.end)
+        return '%s ~ %s' % (self.checkin_date, self.checkout_date)

@@ -11,15 +11,6 @@ class BookingListingSerializer(serializers.ModelSerializer):
         )
 
     property = AdminPropertyListItemSerializer()
-    # guest = CustomUserDetailsSerializer()
-    email = serializers.EmailField()
-    phone_number = serializers.CharField()
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    start = serializers.DateField()
-    end = serializers.DateField()
-    status = serializers.CharField(max_length=10)
-    order_id = serializers.CharField(max_length=50)
 
 
 class BookingDetailSerializer(serializers.ModelSerializer):
@@ -27,9 +18,10 @@ class BookingDetailSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ('__all__')
 
+    property = AdminPropertyListItemSerializer()
+
     def create(self, validated_data):
         instance = super(BookingDetailSerializer, self).create(validated_data)
-        # save paypal order id
         return instance
 
     def update(self, instance, validated_data):
