@@ -21,7 +21,7 @@ from accommodation.models import Property, Price
 from accommodation.models.booking import Booking
 from accommodation.models.price import MonthlyPrice
 from accommodation.serializers.booking_serializer import BkvBookingSerializer, BkvBookingQuoteSerializer, \
-    BookingDetailSerializer, BookingListingSerializer
+    BookingSerializer, BookingNestedSerializer
 from accommodation.utils import get_add, get_payment, get_quote, get_all_properties
 
 from rest_framework.generics import CreateAPIView
@@ -36,12 +36,15 @@ logger = logging.getLogger('django')
 
 
 class BookingViewSet(viewsets.ModelViewSet):
+    """
+    Booking requests CRUD operation
+    """
     queryset = Booking.objects.all()
 
     def get_serializer_class(self):
-        if self.action == 'list':
-            return BookingListingSerializer
-        return BookingDetailSerializer
+        if self.action == 'list' or self.action == "retrieve":
+            return BookingNestedSerializer
+        return BookingSerializer
 
     def get_permissions(self):
         if self.action == 'list' or self.action == 'retrieve' or self.action == 'create':
@@ -52,6 +55,10 @@ class BookingViewSet(viewsets.ModelViewSet):
 
 
 class CreateClientTokenView(CreateAPIView):
+    """
+    Create Paypal Client Token.
+    Token is used in checkout page
+    """
     permission_classes = []
 
     def post(self, request, *args, **kwargs):
@@ -61,7 +68,7 @@ class CreateClientTokenView(CreateAPIView):
 
 class BookingOrderView(CreateAPIView):
     """
-    Calculate booking price and Create paypal order.
+    Calculate booking price and Create paypal Order.
     Returns paypal order detail.
     """
     permission_classes = []
@@ -86,8 +93,11 @@ class BookingOrderView(CreateAPIView):
 
 class BookingApproveView(CreateAPIView):
     """
-    Capture paypal order and update booking status.
+    Capture paypal order and update booking status = "A" (Approved).
     Add booking to Bookerville
+
+    Todo: Send confirm email with confirmation code
+    get_add() returns confirmation code
     """
     permission_classes = []
 
@@ -104,6 +114,7 @@ class BookingApproveView(CreateAPIView):
         # Capture paypal payment order
         paypal_api = PaypalRestAPI()
         order_id = booking_instance.order_id
+        # Order already captured error handling
         paypal_response = paypal_api.capture_order(order_id)
 
         # Add booking to bookerville
@@ -154,7 +165,7 @@ class BookingApproveView(CreateAPIView):
                                state_tax=tax,
                                add_items=add_items, refund=refundable_amount, operation="ADD")
             response = str(response, "utf-8").replace("&", "&amp;")
-            logger.info("BookingApproveView :>> response %s" % response)
+            logger.info("BookingApproveView Bookerville Add :>> response %s" % response)
 
             data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
             response_data = data['BKV-API-Booking-Response']
@@ -168,20 +179,39 @@ class BookingApproveView(CreateAPIView):
             else:
                 return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
         except HTTPError as error:
-            logger.error("BookingApproveView :>> error %s" % error)
+            logger.error("BookingApproveView Bookerville Add :>> error %s" % error)
             return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
         payment_type = "PaypalRestAPI"
         pay_id = ""
-        date_paid = paypal_response["create_time"].strftime('%Y-%m-%d %H:%M')
+        date_paid = paypal_response["create_time"]
 
         try:
-            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
-                        operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
-            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
+            response = get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
                         operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
 
+            # get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
+            #             operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
+            # get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
+            #             operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
+
+            response = str(response, "utf-8").replace("&", "&amp;")
+            logger.info("BookingApproveView :>> response %s" % response)
+
+            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
+            response_data = data['BKV-API-Booking-Response']
+            if response_data['status'] == 'success':
+                booking_id = response_data['bkvBookingId']
+                # booking_confirm_code = response_data['confirmCode']
+                # booking_url = response_data['bkvBookingURL']
+            elif response_data['status'] == 'failure':
+                booking_error = response_data['error']
+                return Response(data=booking_error, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+
             booking_instance.status = "A"
+            booking_instance.save()
             # return Response({"id": paypal_api.capture_order(order_id)})
             #
             # return Response(data={
@@ -189,109 +219,18 @@ class BookingApproveView(CreateAPIView):
             #     'booking_confirm_code': booking_confirm_code,
             #     'booking_url': booking_url,
             # })
+
             return Response(status=HTTP_200_OK)
         except HTTPError as error:
             logger.error("BkvAddPaymentView :>> error %s" % error)
             return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class BkvPropertyListingView(APIView):
-    permission_classes = []
-
-    def get(self, request):
-        data = get_all_properties()
-        return Response(data=data)
-
-
-class BkvAddPaymentView(CreateAPIView):
-    permission_classes = []
-    serializer_class = BkvBookingSerializer
-
-    def create(self, request, *args, **kwargs):
-        booking_serializer = self.serializer_class(data=request.data)
-
-        if not booking_serializer.is_valid():
-            return Response(status=HTTP_400_BAD_REQUEST, data=booking_serializer.errors)
-
-        data = booking_serializer.validated_data
-
-        property_num = data["bookerville_id"]
-        begin_date = data["checkin_date"].strftime("%Y-%m-%d")
-        end_date = data["checkout_date"].strftime("%Y-%m-%d")
-        adults = data["adults"]
-        children = data["children"]
-        property_fee = data["property_fee"]
-        cleaning_fee = data["cleaning_fee"]
-        refundable_amount = data["refundable_amount"]
-        transaction_fee = data["transaction_fee"]
-        tax = data["tax"]
-        total = data["total"]
-
-        first_name = data["guest"]["first_name"]
-        last_name = data["guest"]["last_name"]
-        email = data["guest"]["email"]
-        phone = data["guest"]["phone_number"]
-
-        country = data["billing"]["country"]
-        state = data["billing"]["state"]
-        city = data["billing"]["city"]
-        street = data["billing"]["street"]
-        zip_code = data["billing"]["zip_code"]
-
-        add_items = [
-            ('Transaction Fee', transaction_fee, 'no'),
-            ('Pre-Tax Subtotal', total - transaction_fee, 'no')
-        ]
-
-        """
-        Bookerville Add Booking
-        """
-        try:
-            response = get_add(property_num=property_num, begin_date=begin_date, end_date=end_date, adults=adults,
-                               child=children, address=street, state=state, city=city, zip=zip_code, country=country,
-                               first_name=first_name, last_name=last_name, email=email, phone=phone,
-                               rent=property_fee, cleaning_fee=cleaning_fee, total=total, net=property_fee,
-                               state_tax=tax,
-                               add_items=add_items, refund=refundable_amount, operation="ADD")
-            response = str(response, "utf-8").replace("&", "&amp;")
-            logger.info("BkvAddPaymentView :>> response %s" % response)
-
-            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
-            response_data = data['BKV-API-Booking-Response']
-            if response_data['status'] == 'success':
-                booking_id = response_data['bkvBookingId']
-                booking_confirm_code = response_data['confirmCode']
-                booking_url = response_data['bkvBookingURL']
-            elif response_data['status'] == 'failure':
-                booking_error = response_data['error']
-                return Response(data=booking_error, status=HTTP_400_BAD_REQUEST)
-            else:
-                return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
-        except HTTPError as error:
-            logger.error("BkvAddPaymentView :>> error %s" % error)
-            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
-
-        payment_type = "PaypalRestAPI"
-        pay_id = ""
-        date_paid = datetime.now().strftime('%Y-%m-%d %H:%M')
-
-        """
-        Bookerville Add Payment
-        """
-        try:
-            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
-                        operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
-            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
-                        operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
-
-            return Response(data={
-                'booking_id': booking_id,
-                'booking_confirm_code': booking_confirm_code,
-                'booking_url': booking_url,
-            })
-        except HTTPError as error:
-            logger.error("BkvAddPaymentView :>> error %s" % error)
-            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+class BookingDeclineView(CreateAPIView):
+    """
+    Todo: Cancel Paypal order and Update bookin status = "D"
+    """
+    pass
 
 
 class BkvQuoteView(APIView):
@@ -459,3 +398,109 @@ class BookingPricing:
         else:
             property = Property.objects.get(pk=property_id)
             return property.min_month_price
+
+
+class BkvPropertyListingView(APIView):
+    """
+    Utility View for listing all properties of Bookerville.
+    Not used in web app.
+    """
+    permission_classes = []
+
+    def get(self, request):
+        data = get_all_properties()
+        return Response(data=data)
+
+
+class BkvAddPaymentView(CreateAPIView):
+    """
+    Deprecating in favour of new Booking Accept/Decline workflow
+    """
+    permission_classes = []
+    serializer_class = BkvBookingSerializer
+
+    def create(self, request, *args, **kwargs):
+        booking_serializer = self.serializer_class(data=request.data)
+
+        if not booking_serializer.is_valid():
+            return Response(status=HTTP_400_BAD_REQUEST, data=booking_serializer.errors)
+
+        data = booking_serializer.validated_data
+
+        property_num = data["bookerville_id"]
+        begin_date = data["checkin_date"].strftime("%Y-%m-%d")
+        end_date = data["checkout_date"].strftime("%Y-%m-%d")
+        adults = data["adults"]
+        children = data["children"]
+        property_fee = data["property_fee"]
+        cleaning_fee = data["cleaning_fee"]
+        refundable_amount = data["refundable_amount"]
+        transaction_fee = data["transaction_fee"]
+        tax = data["tax"]
+        total = data["total"]
+
+        first_name = data["guest"]["first_name"]
+        last_name = data["guest"]["last_name"]
+        email = data["guest"]["email"]
+        phone = data["guest"]["phone_number"]
+
+        country = data["billing"]["country"]
+        state = data["billing"]["state"]
+        city = data["billing"]["city"]
+        street = data["billing"]["street"]
+        zip_code = data["billing"]["zip_code"]
+
+        add_items = [
+            ('Transaction Fee', transaction_fee, 'no'),
+            ('Pre-Tax Subtotal', total - transaction_fee, 'no')
+        ]
+
+        """
+        Bookerville Add Booking
+        """
+        try:
+            response = get_add(property_num=property_num, begin_date=begin_date, end_date=end_date, adults=adults,
+                               child=children, address=street, state=state, city=city, zip=zip_code, country=country,
+                               first_name=first_name, last_name=last_name, email=email, phone=phone,
+                               rent=property_fee, cleaning_fee=cleaning_fee, total=total, net=property_fee,
+                               state_tax=tax,
+                               add_items=add_items, refund=refundable_amount, operation="ADD")
+            response = str(response, "utf-8").replace("&", "&amp;")
+            logger.info("BkvAddPaymentView :>> response %s" % response)
+
+            data = xmltodict.parse(response, attr_prefix='_', dict_constructor=dict)
+            response_data = data['BKV-API-Booking-Response']
+            if response_data['status'] == 'success':
+                booking_id = response_data['bkvBookingId']
+                booking_confirm_code = response_data['confirmCode']
+                booking_url = response_data['bkvBookingURL']
+            elif response_data['status'] == 'failure':
+                booking_error = response_data['error']
+                return Response(data=booking_error, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response(data='Unknown error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+        except HTTPError as error:
+            logger.error("BkvAddPaymentView :>> error %s" % error)
+            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)
+
+        payment_type = "PaypalRestAPI"
+        pay_id = ""
+        date_paid = datetime.now().strftime('%Y-%m-%d %H:%M')
+
+        """
+        Bookerville Add Payment
+        """
+        try:
+            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=total,
+                        operation='ADD', payment_type=payment_type, refund_portion=0, venue='Venue')
+            get_payment(book_id=booking_id, pay_id=pay_id, date_paid=date_paid, amount=0,
+                        operation='ADD', payment_type=payment_type, refund_portion=refundable_amount, venue='Venue')
+
+            return Response(data={
+                'booking_id': booking_id,
+                'booking_confirm_code': booking_confirm_code,
+                'booking_url': booking_url,
+            })
+        except HTTPError as error:
+            logger.error("BkvAddPaymentView :>> error %s" % error)
+            return Response(data='Server error', status=HTTP_500_INTERNAL_SERVER_ERROR)

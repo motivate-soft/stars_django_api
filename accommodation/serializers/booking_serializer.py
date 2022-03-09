@@ -3,30 +3,22 @@ from accommodation.models.booking import Booking
 from accommodation.serializers.property_serializer import AdminPropertyListItemSerializer
 
 
-class BookingListingSerializer(serializers.ModelSerializer):
+class BookingNestedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = (
-            '__all__'
-        )
+        fields = '__all__'
 
     property = AdminPropertyListItemSerializer()
 
 
-class BookingDetailSerializer(serializers.ModelSerializer):
+class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ('__all__')
+        fields = '__all__'
 
-    property = AdminPropertyListItemSerializer()
-
-    def create(self, validated_data):
-        instance = super(BookingDetailSerializer, self).create(validated_data)
-        return instance
-
-    def update(self, instance, validated_data):
-        # update status based on capture payment
-        pass
+    # def create(self, validated_data):
+    #     print(validated_data)
+    #     return
 
 
 class BillingObjectSerializer(serializers.Serializer):

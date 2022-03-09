@@ -26,8 +26,8 @@ class Booking(models.Model):
     last_name = models.CharField(max_length=50)
 
     country = models.CharField(null=True, max_length=20)
-    state = models.CharField(null=True, max_length=50)
-    city = models.CharField(null=True, max_length=50)
+    state = models.CharField(null=True, blank=True, max_length=50)
+    city = models.CharField(null=True, blank=True, max_length=50)
     street = models.CharField(null=True, max_length=100)
     zip_code = models.CharField(null=True, max_length=20)
 
