@@ -64,6 +64,7 @@ class BlogPagination(PageNumberPagination):
 
 
 class BlogListingAPIView(generics.ListAPIView):
+    ordering = '-created_date'
     queryset = Blog.objects.order_by('-created_date')
     serializer_class = BlogListingSerializer
     permission_classes = []
@@ -72,13 +73,13 @@ class BlogListingAPIView(generics.ListAPIView):
     filterset_class = BlogFilter
 
     # def get_queryset(self):
-    #     queryset = Blog.objects.order_by('-published_date')
-    #     # tags = self.request.query_params.get('tags', None)
-    #     # if tags:
-    #     #     array = tags.split(",")
-    #     #     queryset = Blog.objects.filter(tags__in=array).order_by('-published_date')
-    #     # else:
-    #     #     queryset = Blog.objects.order_by('-published_date')
+    #     queryset = Blog.objects.order_by('-created_date')
+    #     tags = self.request.query_params.get('tags', None)
+    #     if tags:
+    #         array = tags.split(",")
+    #         queryset = Blog.objects.filter(tags__in=array).order_by('-created_date')
+    #     else:
+    #         queryset = Blog.objects.order_by('-created_date')
     #     return queryset
 
 
