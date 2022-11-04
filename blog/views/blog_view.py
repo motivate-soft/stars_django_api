@@ -65,6 +65,7 @@ class BlogPagination(PageNumberPagination):
 
 class BlogListingAPIView(generics.ListAPIView):
     ordering = '-published_date'
+    ordering_fields = '-published_date'
     queryset = Blog.objects.order_by('-published_date')
     serializer_class = BlogListingSerializer
     permission_classes = []
