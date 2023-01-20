@@ -11,18 +11,6 @@ from paypalhttp import HttpError
 
 logger = logging.getLogger('django')
 
-http_proxy = "http://172.25.1.2:3129"
-https_proxy = "http://172.25.1.2:3129"
-ftp_proxy = "http://172.25.1.2:3129"
-
-proxyDict = {
-    "http": http_proxy,
-    "https": https_proxy,
-    "ftp": ftp_proxy
-}
-
-import paypalhttp
-
 try:
     from urllib import quote  # Python 2.X
 except ImportError:
@@ -63,7 +51,7 @@ class PaypalRestAPI:
             data = {
                 "client_token": response.result.client_token,
                 "expires_in": response.result.expires_in,
-                "id_token": response.result.id_token,
+                # "id_token": response.result.id_token,
             }
             return data
 
