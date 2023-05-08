@@ -45,7 +45,7 @@ class PaypalRestAPI:
         token_request = TokenCreateRequest()
         token_request.prefer('return=representation')
         try:
-            paypal_client = PaypalClient()
+            paypal_client = PaypalClient(env='production')
 
             response = paypal_client.execute(request=token_request)
             data = {
